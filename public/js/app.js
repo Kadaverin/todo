@@ -53238,9 +53238,9 @@ var Header = function (_Component) {
         value: function handleLogout() {
 
             //перенести в экшн , обновить состояние isAuth
-            this.props.logout();
             console.log(' DELETEING TOKEN ');
             localStorage.removeItem('token');
+            this.props.logout();
         }
     }, {
         key: 'render',
@@ -53360,7 +53360,6 @@ var AddProject = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_data__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_task__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_project__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__helpers_requests_postDataFunction__ = __webpack_require__(9);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53368,7 +53367,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -53719,9 +53717,6 @@ var ProjectTasksList = function (_Component) {
     function ProjectTasksList(props) {
         _classCallCheck(this, ProjectTasksList);
 
-        // this.state = {
-        //     projectIdsWhereTasksOrderChanged : []
-        // }
         var _this = _possibleConstructorReturn(this, (ProjectTasksList.__proto__ || Object.getPrototypeOf(ProjectTasksList)).call(this, props));
 
         _this.tasksOrderIsChanged = false;
@@ -53729,24 +53724,6 @@ var ProjectTasksList = function (_Component) {
         _this.up = _this.up.bind(_this);
 
         _this.f = Object(__WEBPACK_IMPORTED_MODULE_6__helpers_data_debounce__["a" /* default */])(_this.f, 500);
-
-        //         console.log('DEBOUNCE ')
-
-        //     let  tasksIds  = this.props.projectsTasksIds[this.props.project.id]
-
-        //     let taskPriority = tasksIds.map( (taskId , taskIndex) =>{
-        //        return { id : taskId , priority : taskIndex };
-        //     })
-
-        //         post('api/update_tasks_list' , JSON.stringify(taskPriority)).then(
-        //             ok =>{
-        //                 console.log('ok')
-        //             },
-        //             notOk =>{
-        //                 console.log('woops')
-        //             }
-        //         )
-        //      } , 500 )
         return _this;
     }
 
@@ -53755,19 +53732,9 @@ var ProjectTasksList = function (_Component) {
 
     // }
 
-    //    trackProjectsWhereTasksOrderChanged(projectId){
-    //        this.setState({
-    //             projectIdsWhereTasksOrderChanged : [...this.state , projectId ]
-    //        })
-    //    }
-
-
     _createClass(ProjectTasksList, [{
         key: 'f',
         value: function f() {
-
-            console.log('DEBOUNCE ');
-
             var tasksIds = this.props.projectsTasksIds[this.props.project.id];
 
             var taskPriority = tasksIds.map(function (taskId, taskIndex) {
