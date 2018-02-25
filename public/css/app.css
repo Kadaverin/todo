@@ -8501,12 +8501,6 @@ button.close {
   background: lightgray;
 }
 
-.task-edit-icons {
-  width: 100px;
-  margin-left: 400px;
-  display: none;
-}
-
 .simple-project-task:hover {
   background-color: #ffea99;
 }
