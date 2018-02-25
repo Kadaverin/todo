@@ -43,7 +43,7 @@ export class ProjectTasksList extends Component {
              
     trackChangesOfTasksOrder(){
         this.tasksOrderIsChanged = true;
-        console.log("TRACKING" + this.tasksOrderIsChanged)
+        console.log("TRACKING " + this.tasksOrderIsChanged)
     }
 
     up(){
@@ -76,7 +76,7 @@ export class ProjectTasksList extends Component {
                 { 
                 tasksIds
                 ?
-                 <ul>
+                 <ul className = 'project-tasks-list'>
                     {tasksIds.map((taskId , index) =>{
                         let task = this.props.tasksById[ taskId ];
                         return (

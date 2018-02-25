@@ -32,7 +32,7 @@ export default class EditTaskNameForm extends Component {
     render(){
 
         return(
-            <div>
+            <div className = 'edit-task-name-form'>
                 <input 
                     defaultValue={this.props.task.name}
                     ref = { (newTaskTitle) => this.newTaskTitleInput = newTaskTitle }

@@ -24,7 +24,7 @@ export  class Header extends Component{
 
         return(
             <div className = 'ToDoHeader'>
-                <button onClick = {this.handleLogout} style = {{float : 'left'}}>  logout </button>
+                <button onClick = {this.handleLogout} id ='logout-btn'>  logout </button>
                 <AddProjectForm addProject = {this.props.addProject}/>;
             </div>
         )

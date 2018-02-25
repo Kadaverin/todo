@@ -3,7 +3,6 @@ import ProjectEditIcons from './ProjectEditIcons';
 import AddTaskForm from './AddTaskForm';
 import EditTitleForm from './EditTitleForm';
 import ProjectTitle from './ProjectTitle';
-import post from '../helpers/requests/postDataFunction';
 
 export default class ProjectHeader extends Component {
 
@@ -23,7 +22,7 @@ export default class ProjectHeader extends Component {
 
     render(){       
         return(
-            <div>
+            <div className = 'project-header' >
               {
                 !this.state.titleIsEditing 
                 ?   

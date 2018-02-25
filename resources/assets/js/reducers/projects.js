@@ -7,7 +7,7 @@ import
         ADD_PROJECT_SUCCESS,
         ADD_PROJECT_ERROR,
         DELETE_PROJECT,
-        UPDATE_PROJECT,} from '../constants/ActionTypes';
+        UPDATE_PROJECT, LOGOUT} from '../constants/ActionTypes';
 
          import {} from '../constants/ActionTypes';
 
@@ -39,6 +39,9 @@ export default function projects (state = initialState , action){
                   });
                   return newProjects;
                 }
+            case LOGOUT :
+                return [];
+              break;
 
             default : return state;
          }

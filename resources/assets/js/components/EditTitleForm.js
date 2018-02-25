@@ -32,7 +32,7 @@ export default class EditTitleForm extends Component {
     render(){
 
         return(
-            <div>
+            <div className = 'edit-project-name-form'>
                 <input 
                     defaultValue={this.props.project.name}
                     ref = {(newProjectTitle) => {this.newProjectTitleInput = newProjectTitle}}

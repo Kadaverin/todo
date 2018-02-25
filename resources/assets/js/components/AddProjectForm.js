@@ -23,13 +23,16 @@ export default class AddProject extends Component{
     render(){
 
         return(
-            <form  onSubmit = {this.handleAddProject}>
+            <div className = 'add-project-form'>
+                <form  onSubmit = {this.handleAddProject}>
                 <input 
                     defaultValue=''
                     ref = 'projectName'
                 />
                 <button type='submit'> Add project</button>
-            </form>
+              </form>
+            </div>
+            
            
         )
     }

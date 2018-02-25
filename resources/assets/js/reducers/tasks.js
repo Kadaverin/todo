@@ -12,7 +12,7 @@ import
         MOVE_UP_TASK,
         MOVE_DOWN_TASK,
         DELETE_TASK,
-        UPDATE_TASK,} from '../constants/ActionTypes';
+        UPDATE_TASK, LOGOUT} from '../constants/ActionTypes';
 
 import { moveArrEllementUpOrInTail , moveArrEllementDownOrInHead } from '../helpers/data/arrays';
 
@@ -154,6 +154,13 @@ export default function tasks (state = initialState , action){
                        }
                }  
              break;
+
+             case LOGOUT : 
+                 return {
+                               tasksById : { } ,
+                               projectsTasksIds : {}
+                           }
+              
 
             default : return state;
          }

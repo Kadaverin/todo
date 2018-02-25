@@ -2509,7 +2509,7 @@ var ProjectEditIcons = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'project-edit-icons' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     { className: 'glyphicon glyphicon-pencil', onClick: this.handleStartEditing },
@@ -2580,16 +2580,20 @@ var AddTaskForm = function (_Component) {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                { onSubmit: this.handleAddTask },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-                    defaultValue: '',
-                    ref: 'taskName'
-                }),
+                'div',
+                { className: 'add-task-form' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { type: 'submit' },
-                    'Add task'
+                    'form',
+                    { onSubmit: this.handleAddTask },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                        defaultValue: '',
+                        ref: 'taskName'
+                    }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { type: 'submit' },
+                        'Add task'
+                    )
                 )
             );
         }
@@ -51346,7 +51350,7 @@ var ToDoPage = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { style: { marginLeft: '40%' } },
+                { className: 'todo-main-page' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Header__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ToDoList__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Footer__["a" /* default */], null)
@@ -53238,9 +53242,9 @@ var Header = function (_Component) {
         value: function handleLogout() {
 
             //перенести в экшн , обновить состояние isAuth
-            this.props.logout();
             console.log(' DELETEING TOKEN ');
             localStorage.removeItem('token');
+            this.props.logout();
         }
     }, {
         key: 'render',
@@ -53251,7 +53255,7 @@ var Header = function (_Component) {
                 { className: 'ToDoHeader' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
-                    { onClick: this.handleLogout, style: { float: 'left' } },
+                    { onClick: this.handleLogout, id: 'logout-btn' },
                     '  logout '
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_AddProjectForm__["a" /* default */], { addProject: this.props.addProject }),
@@ -53325,16 +53329,20 @@ var AddProject = function (_Component) {
         value: function render() {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                { onSubmit: this.handleAddProject },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-                    defaultValue: '',
-                    ref: 'projectName'
-                }),
+                'div',
+                { className: 'add-project-form' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { type: 'submit' },
-                    ' Add project'
+                    'form',
+                    { onSubmit: this.handleAddProject },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                        defaultValue: '',
+                        ref: 'projectName'
+                    }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { type: 'submit' },
+                        ' Add project'
+                    )
                 )
             );
         }
@@ -53360,7 +53368,6 @@ var AddProject = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_data__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_task__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_project__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__helpers_requests_postDataFunction__ = __webpack_require__(9);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53368,7 +53375,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -53470,7 +53476,6 @@ function mapDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddTaskForm__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditTitleForm__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ProjectTitle__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_requests_postDataFunction__ = __webpack_require__(9);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53478,7 +53483,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -53513,7 +53517,7 @@ var ProjectHeader = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'project-header' },
                 !this.state.titleIsEditing ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ProjectTitle__["a" /* default */], {
                     project: this.props.project,
                     deleteProject: this.props.deleteProject,
@@ -53595,7 +53599,7 @@ var EditTitleForm = function (_Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'edit-project-name-form' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
                     defaultValue: this.props.project.name,
                     ref: function ref(newProjectTitle) {
@@ -53654,11 +53658,10 @@ var ProjectTitle = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'project-title-with-edit-icons' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'ProjectHeaderTitle',
-                        style: { float: 'left' } },
+                    { className: 'project-title' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'span',
                         { className: '\tglyphicon ' },
@@ -53719,9 +53722,6 @@ var ProjectTasksList = function (_Component) {
     function ProjectTasksList(props) {
         _classCallCheck(this, ProjectTasksList);
 
-        // this.state = {
-        //     projectIdsWhereTasksOrderChanged : []
-        // }
         var _this = _possibleConstructorReturn(this, (ProjectTasksList.__proto__ || Object.getPrototypeOf(ProjectTasksList)).call(this, props));
 
         _this.tasksOrderIsChanged = false;
@@ -53729,24 +53729,6 @@ var ProjectTasksList = function (_Component) {
         _this.up = _this.up.bind(_this);
 
         _this.f = Object(__WEBPACK_IMPORTED_MODULE_6__helpers_data_debounce__["a" /* default */])(_this.f, 500);
-
-        //         console.log('DEBOUNCE ')
-
-        //     let  tasksIds  = this.props.projectsTasksIds[this.props.project.id]
-
-        //     let taskPriority = tasksIds.map( (taskId , taskIndex) =>{
-        //        return { id : taskId , priority : taskIndex };
-        //     })
-
-        //         post('api/update_tasks_list' , JSON.stringify(taskPriority)).then(
-        //             ok =>{
-        //                 console.log('ok')
-        //             },
-        //             notOk =>{
-        //                 console.log('woops')
-        //             }
-        //         )
-        //      } , 500 )
         return _this;
     }
 
@@ -53755,19 +53737,9 @@ var ProjectTasksList = function (_Component) {
 
     // }
 
-    //    trackProjectsWhereTasksOrderChanged(projectId){
-    //        this.setState({
-    //             projectIdsWhereTasksOrderChanged : [...this.state , projectId ]
-    //        })
-    //    }
-
-
     _createClass(ProjectTasksList, [{
         key: 'f',
         value: function f() {
-
-            console.log('DEBOUNCE ');
-
             var tasksIds = this.props.projectsTasksIds[this.props.project.id];
 
             var taskPriority = tasksIds.map(function (taskId, taskIndex) {
@@ -53784,7 +53756,7 @@ var ProjectTasksList = function (_Component) {
         key: 'trackChangesOfTasksOrder',
         value: function trackChangesOfTasksOrder() {
             this.tasksOrderIsChanged = true;
-            console.log("TRACKING" + this.tasksOrderIsChanged);
+            console.log("TRACKING " + this.tasksOrderIsChanged);
         }
     }, {
         key: 'up',
@@ -53818,7 +53790,7 @@ var ProjectTasksList = function (_Component) {
                 }),
                 tasksIds ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'ul',
-                    null,
+                    { className: 'project-tasks-list' },
                     tasksIds.map(function (taskId, index) {
                         var task = _this2.props.tasksById[taskId];
                         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -53950,7 +53922,7 @@ var SimpleProjectTask = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'simple-project-task' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_TaskIsDoneCheckBox__["a" /* default */], {
                     taskIsDone: this.props.task.isDone,
                     handleCheck: this.props.changeTaskStatus,
@@ -54062,13 +54034,20 @@ var TaskTitle = function (_Component) {
         value: function handleKeyDown(e) {
             //  console.log('KEYDOWN  ' + e.keyCode + ' IN ' +  this.props.task.name);
             if (e.keyCode === 38) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+
                 this.props.moveUpTask(this.props.indexInTasksIdsArray, this.props.task.id);
                 this.props.trackChangesOfTasksOrder();
                 this.props.up();
-                e.stopPropagation();
             }
 
             if (e.keyCode === 40) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+
                 this.props.moveDownTask(this.props.indexInTasksIdsArray, this.props.task.id);
                 this.props.trackChangesOfTasksOrder();
                 this.props.up();
@@ -54083,10 +54062,10 @@ var TaskTitle = function (_Component) {
             //   console.log('RENDER ' + this.props.task.name);
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'task-title-with-edit-icons' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'TaskHeaderTitle',
+                    'span',
+                    { className: 'task-title',
                         tabIndex: '-1',
                         ref: function ref(taskTitleDiv) {
                             return _this2.activeTask = taskTitleDiv;
@@ -54161,7 +54140,7 @@ var TaskEditIcons = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'task-edit-icons' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     { className: 'glyphicon glyphicon-sort', style: this.props.taskIsActive ? { color: 'orange' } : {} },
@@ -54249,7 +54228,7 @@ var EditTaskNameForm = function (_Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'edit-task-name-form' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
                     defaultValue: this.props.task.name,
                     ref: function ref(newTaskTitle) {
@@ -54287,7 +54266,7 @@ var EditTaskNameForm = function (_Component) {
 var TaskIsDoneCheckBox = function TaskIsDoneCheckBox(props) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { style: { float: 'left', marginLeft: 0, padding: 0 } },
+        { className: 'task-is-done-check-box' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
             type: 'checkbox',
             onChange: function onChange() {
@@ -54517,6 +54496,9 @@ function projects() {
         });
         return newProjects;
       }
+    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["u" /* LOGOUT */]:
+      return [];
+      break;
 
     default:
       return state;
@@ -54678,6 +54660,12 @@ function tasks() {
         });
       }
       break;
+
+    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["u" /* LOGOUT */]:
+      return {
+        tasksById: {},
+        projectsTasksIds: {}
+      };
 
     default:
       return state;
