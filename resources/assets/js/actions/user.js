@@ -14,7 +14,7 @@ export  function login(userInfo){
     return dispatch => {
 
             dispatch (loginRequest())
-            return  post('api/login' ,JSON.stringify(userInfo)).then (
+            return  post('/api/login' ,JSON.stringify(userInfo)).then (
 
                         responseData => {
                             localStorage.setItem("token" , responseData.token)
@@ -33,7 +33,7 @@ export  function register(userInfo){
    return dispatch => {
 
             dispatch (registerRequest())
-            return  post('api/register' , JSON.stringify(userInfo)).then (
+            return  post('/api/register' , JSON.stringify(userInfo)).then (
 
                         responseData => {
                             dispatch (registered());

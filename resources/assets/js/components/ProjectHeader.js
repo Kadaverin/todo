@@ -38,10 +38,6 @@ export default class ProjectHeader extends Component {
                     stopEditing = {this.startStopEditingSwitcher}
                 />
              }
-                {/*<AddTaskForm 
-                    projectId = {this.props.project.id}
-                    addTask = {this.props.addTask} 
-                />*/}
             </div>
         )
     }

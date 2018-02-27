@@ -9,9 +9,8 @@ export default class EditTitleForm extends Component {
         this.cancelEditing = this.cancelEditing.bind(this);
     }
 
-    componentDidMount(){
-         //findDOMNode(this.refs.newProjectTitle).focus();
-         this.newProjectTitleInput.focus();
+    componentDidMount() {
+        this.newProjectTitleInput.focus();
     }
 
     handleUpdateTitle(e){
@@ -37,8 +36,11 @@ export default class EditTitleForm extends Component {
                     defaultValue={this.props.project.name}
                     ref = {(newProjectTitle) => {this.newProjectTitleInput = newProjectTitle}}
                 /> 
+                <div clsssName = 'ok-cancel-toolbox'>
                  <span className = 'glyphicon glyphicon-ok' onClick = { this.handleUpdateTitle } > </span>
                  <span className = 'glyphicon glyphicon-remove' onClick = { this.cancelEditing } > </span>
+                </div>
+              
             </div>
                 
            

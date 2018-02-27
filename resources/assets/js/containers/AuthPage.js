@@ -12,12 +12,6 @@ export default class AuthContainer extends Component{
         this.changeFormToRegisterForm = this.changeFormToRegisterForm.bind(this);
     }
 
-    // componentWillMount(){
-    //      if (localStorage.getItem('token') !== null) {
-    //          this.props.autoLoginFunc();
-    //      }
-    // }
-
     changeFormToLoginForm(e){
          e.preventDefault();
         this.setState ({  userWantsToLogin : true })
@@ -27,7 +21,7 @@ export default class AuthContainer extends Component{
         e.preventDefault();
         this.setState ({  userWantsToLogin : false })
     }
-
+    
     render(){
         return (
             <div className = 'auth-page'>

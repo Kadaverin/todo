@@ -14,9 +14,7 @@ export default class AddProject extends Component{
         const projectName = projectNameInput.value.trim();
         if(!projectName) return;
 
-        //диспатчим экшн для добавления тудушки 
         this.props.addProject( projectName )
-       // alert ('Имя нового проекта ' + projectName);
         projectNameInput.value = '';
     }
 

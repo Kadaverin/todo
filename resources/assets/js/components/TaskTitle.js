@@ -63,7 +63,6 @@ constructor(props){
             this.props.moveDownTask( this.props.indexInTasksIdsArray , this.props.task.id); 
             this.props.trackChangesOfTasksOrder();
             this.props.up();
-            e.stopPropagation();
         }
     }
 
@@ -72,14 +71,15 @@ constructor(props){
         return (
             <div className = 'task-title-with-edit-icons'>
                 {/*ПОПРОВИТЬ ПЕРЕМЕЩЕНИЕ ТАСОК ЧЕРЕЗ КРАЙ МАССИВА !!!ТУТ ЧЕКБОКС КОТОРЫЙ БУДЕТ ОТОБРАЖАТЬ СТАТУС ТАСКИ . Если сделана - то галочка*/}
-                <span className = 'task-title'
+                <div className = 'task-title'
                      tabIndex="-1"
                      ref = { (taskTitleDiv) => this.activeTask = taskTitleDiv } 
                      onClick = { this.handleClickOnTaskTitle }
                      onKeyDown = { this.handleKeyDown }       
                 >
-                   { this.props.task.name }        
-                </span>    
+                   { this.props.task.name }   
+                   {/*<span className = 'glyphicon glyphicon-sort' id = 'focused-task-sort-icon' > </span>  */}
+                </div>    
                 
                 <TaskEditIcons 
                      task = {this.props.task}

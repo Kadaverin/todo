@@ -37,8 +37,10 @@ export default class EditTaskNameForm extends Component {
                     defaultValue={this.props.task.name}
                     ref = { (newTaskTitle) => this.newTaskTitleInput = newTaskTitle }
                 />
+               <div className = 'ok-cancel-toolbox'>
                  <span className = 'glyphicon glyphicon-ok' onClick = { this.handleUpdateTitle } > </span>
                  <span className = 'glyphicon glyphicon-remove' onClick = { this.cancelEditing } > </span>
+               </div>
             </div>
                 
            

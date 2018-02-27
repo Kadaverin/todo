@@ -8,16 +8,16 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-.login-form button, .auth-page button,#submit-register
+.todo-main-page
 {
-    border-radius:5px;
-    border:0;
-    font-weight:100;
-    color:#333;
-    background-color:white;
-    transition: 300ms;
-    outline:none;
+  min-width: 700px;
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
 }
+
+
+
 .ToDoHeader button
 {
     height:30px;
@@ -37,78 +37,91 @@
 .ToDoHeader input{
     height:30px;
     width: 300px;
-  //  float : left;
 }
 .ToDoHeader button:hover
 {
     background:linear-gradient(to bottom,rgb(0, 119, 188), rgb(145, 206, 242))
 }
-#submit-register
-{
-    margin-top:20px;
-    width:100px;
-    height:30px;
-    transition:300ms;
-}
-.auth-page
-{
-    width:300px;
-    height:300px;
-    padding:15px;
-    border-radius:15px;
-    border:1px solid #333;
-    background-color:#ffea99;
-    display:flex;
-    margin: 0 auto;
-    justify-content:center;
-    align-items:center;
-}
 
-.todo-main-page
-{
-    
-}
+
 .project-header
 {
-    width:500px;
-    display:flex;
-    background:#ffea99;
+ padding-left: 20px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,2989d8+50,7db9e8+100 */
+  background: #4499e9;
+  background: -moz-linear-gradient(top, #4499e9 0%, #08498f 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4499e9), color-stop(100%, #08498f));
+  background: -webkit-linear-gradient(top, #4499e9 0%, #08498f 100%);
+  background: -o-linear-gradient(top, #4499e9 0%, #08498f 100%);
+  background: -ms-linear-gradient(top, #4499e9 0%, #08498f 100%);
+  background: linear-gradient(to bottom, #4499e9 0%, #08498f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4499e9', endColorstr='#08498f', GradientType=0);
+  height: 50px;
 }
 
-.project-title-with-edit-icons
-{
-    padding-top : 9px;
-    height : 40px;
-    width:500px;
-    display:flex;
-    justify-content: space-between;
-}
 .project-title
 {
-    //width:70%;
-    padding-left : 10px;
-    width : 450px;
-    display:inline-block;
-   // float:left;
+    line-height: 50px;
+    color: white;
 }
 
-.project-edit-icons 
+.project-edit-icons
 {
-    width : 40px;
-   // margin-left : 400px;
+    width : 20%;
+    height : 100%;
+    display:flex;   
+    justify-content:flex-end;
+    align-items: center;
+    text-align: right;
+    padding-right : 5px;
+    line-height: 0.8em;
+    color : white;
 }
-// .project-edit-icons
-// {
-//     float:right;
-// }padding : 0;
+
+.project-edit-icons .glyphicon
+{
+    margin-left:10%;
+}
+
+.edit-project-name-form
+{
+    min-height : 50px;  
+    display : flex;
+    align-items: center;
+    justify-content: space-between;
+    border-left: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.edit-project-name-form input
+{
+
+  margin-left: 3%;
+  width: 90%;
+  height: 35px;
+  padding: 0 0 0 20px;
+}
+
+.edit-project-name-form span 
+{
+    color : white;
+    margin-left : 5%;
+}
+.project-title-with-edit-icons
+{
+    height : 100%;
+     display : flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right:5px;
+}
 
 
 .todo-list
 { 
-    display : flex;
-    justify-content: center;
- //   overflow: scroll;
-  //  margin-left:39%;
+    display: inline-block;
+    margin-bottom: 200px;
+    text-align: left;
+    width: 100%;
 }
 .todo-list ul
 {
@@ -119,17 +132,14 @@
 
 .todo-list li
 {
-    width:500px;
     padding : 0;
     margin-top  : 30px;
-
 }
-
+    
 .project-tasks-list
 {
-    display:flex;
-    flex-direction: column;
-    justify-content: space-around;
+   background-color: white;
+  border-radius: 0 0 10px 10px;
 }
 
 
@@ -138,86 +148,157 @@
     margin-top  : 0px;
 }
 
-.add-task-form input
-{
-    width:380px;
-    margin-left : 40px;
-}
 .add-task-form
 {
-    background: cornflowerblue
+     max-width: 100%;
+  background-color: #D1D1D1;
+  height: 50px;
+  padding: 0 0 0 20px;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
 }
+
+.add-task-form input
+{
+  margin-left: 3%;
+  width: 75%;
+  height: 34px;
+  padding: 0 0 0 20px;
+}
+.add-task-form span
+{
+    margin-left:4px;
+}
+.add-task-form button 
+{
+    background-color: #518A69;
+  height: 34px;
+  width: 20%;
+  margin-right:20px;
+  line-height: 34px;
+  color: white;
+  text-align: center;
+  border:none;
+  border-radius: 0 6px 6px 0;
+}
+
+.add-task-form button:hover 
+{
+  background-color: teal;
+  cursor: pointer;
+}
+
+.edit-task-name-form
+{
+    min-height : 50px;  
+    display : flex;
+    align-items: center;
+    justify-content: space-between;
+    border-left: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.ok-cancel-toolbox
+{
+    margin-left: 3%;
+    margin-right : 2%;
+    min-height : 35px;
+}
+
+.edit-task-name-form input
+{
+  margin-left: 3%;
+  width: 90%;
+  height: 35px;
+  padding: 0 0 0 20px;
+}
+
+ 
 
 .simple-project-task
 {
-     width:500px;
-    display:flex;
- 
-background: lightgray;
-
-
-   // justify-content:space-between;
+      width: 100%;
+  display: table;
+  border-spacing: 10px 0;
+  min-height: 50px
 }
 
-// .task-edit-icons 
-// {
-//     width : 100px;
-//     margin-left : 400px;
-//     display : none;
-// }
 
 .simple-project-task:hover 
 {
-    background-color:#ffea99;
+    background-color: white;
+  border-radius: 0 0 10px 10px;
+    background-color: #FCFED6;
 }
-
-
 
 .task-title:focus 
 {
-   //  background-color:#ffea99;
-     cursor: none;
+  // background-color: rgba(122, 214, 148 ,0.85);
+  outline-style: solid;
+   outline-width: 3px;
+   outline-color: #518A69;
+    
 }
 
-//  .task-title:focus   .task-edit-icons
-// {
-//     display : block !important;
-// }
-
-.simple-project-task:hover .task-edit-icons 
-{
+.simple-project-task:hover .task-edit-icons span
+{  
     display : block;
 }
 
+.task-title-with-edit-icons
+{
+    width : 100%;
+    min-height : 50px; 
+    border-left: 1px solid rgba(255, 0, 0, 0.3);
+}
   
 .task-title
 {
-    width:400px;
-    float:left;
-    margin-left : 15px;   
-    word-wrap: break-word;
-	overflow-wrap: break-word;  
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    margin-right : 15px;   
+  display: inline-block;
+  padding: 12px 0 0 10px;
+  vertical-align: middle;
+  color: black;
+  min-height : 50px;
+  height : 100%;
+  width: 80%; 
+  min-width : 500px;
+//   height : 50px;
 }
+
+
+  
+
 
 .task-is-done-check-box
 {
-    margin-left : 10px;
+      display: table-cell;
+  border-right: 1px solid rgba(255, 0, 0, 0.3);
+  vertical-align: middle;
+  width: 5%;
 }
-// .task-title-with-edit-icons
-// {
-//     width:150px;
-// }
-.main 
+.task-is-done-check-box input
 {
-   overflow: hidden;
-   width:100%;
-   height:100%;
+     margin: 15px;
 }
-.login-form button{
+.task-edit-icons
+{
+    //   display: table-cell;
+//   width: 25%;
+  height: 100%;
+  float: right;
+  //vertical-align: middle;
+}
+
+.task-edit-icons span
+{
+  display: none;
+  float: right;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.login-form button
+{
     margin-top:20px;
     width:100px;
     height:30px;
@@ -252,4 +333,35 @@ background: lightgray;
 .switcher
 {
     margin-bottom:30px;
+}
+.login-form button, .auth-page button,#submit-register
+{
+    border-radius:5px;
+    border:0;
+    font-weight:100;
+    color:#333;
+    background-color:white;
+    transition: 300ms;
+    outline:none;
+}
+
+#submit-register
+{
+    margin-top:20px;
+    width:100px;
+    height:30px;
+    transition:300ms;
+}
+.auth-page
+{
+    width:300px;
+    height:300px;
+    padding:15px;
+    border-radius:15px;
+    border:1px solid #333;
+    background-color: rgba(255, 250, 206 , 0.2);
+    display:flex;
+    margin: 0 auto;
+    justify-content:center;
+    align-items:center;
 }

@@ -24,9 +24,9 @@ export default class TaskEditIcons extends Component {
             <div className = 'task-edit-icons'>
                 {/*КАК_ТО СДЕЛАТЬ ПЕРЕДВИЖЕНИЕ ТАСОК ОЧЕНЬ ВАЖНЫЙ МОМЕНТ !!!!!!!!!!
                  this.props.replaceTask*/}
-                 <span className = 'glyphicon glyphicon-sort'  style =  {this.props.taskIsActive ? { color : 'orange'} : {} } > </span>
-                <span className = 'glyphicon glyphicon-pencil' onClick={this.handleStartEditing} > </span> 
                 <span className = 'glyphicon glyphicon-trash' onClick = {this.handleDelete} > </span> 
+                 <span className = 'glyphicon glyphicon-pencil' onClick={this.handleStartEditing} > </span> 
+                 <span className = 'glyphicon glyphicon-sort'  style =  {this.props.taskIsActive ? { color : 'orange'} : {} } > </span>
             </div>
 
         )
