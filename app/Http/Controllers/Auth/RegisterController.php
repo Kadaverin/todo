@@ -4,31 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -37,7 +20,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+      //  $this->middleware('guest');
     }
 
     /**
@@ -61,7 +44,8 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+
+      protected function create(array $data)
     {
 
         return User::create([
@@ -70,4 +54,28 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+     protected function registered(Request $request, $user)
+    {
+         $key = config ('app.key');
+            $token = array(
+            "data" => [                  // Data related to the signer user
+                    "userId" => $user['id'],// userid from the users <table></table>
+                    "userName" =>$user['name'], // User name
+                ]
+            );
+
+        $jwt = JWT::encode($token, $key);
+
+        return response()->json(['token' => (string)$jwt ], 200);
+    }
+
+       public function register(Request $request){
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        return $this->registered($request, $user);
+    }
+
 }

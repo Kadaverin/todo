@@ -42,7 +42,7 @@ class User extends Authenticatable
                 ->first();
                   
                 
-               if (!isset ($user) || $password =! encrypt($user->password) ) return;
+               if (!isset ($user) || $password !== encrypt($user->password) ) return;
                 
              return $user->id;
     }
