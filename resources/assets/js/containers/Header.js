@@ -13,9 +13,6 @@ export  class Header extends Component{
     }
 
  handleLogout(){
-
-//перенести в экшн , обновить состояние isAuth
-     console.log(' DELETEING TOKEN ')
      localStorage.removeItem('token');
      this.props.logout();
 }
@@ -24,14 +21,12 @@ export  class Header extends Component{
 
         return(
             <div className = 'ToDoHeader'>
-                <button onClick = {this.handleLogout} style = {{float : 'left'}}>  logout </button>
+                <button onClick = {this.handleLogout} id ='logout-btn'>  logout </button>
                 <AddProjectForm addProject = {this.props.addProject}/>;
             </div>
         )
     }
 }
-
-// ПРИКОНЕКТИТЬ , СДЕЛАТЬ ЭКШЕНЫ ДЛЯ ЛОГАУТА И ДЛЯ ДОБАВЛЕНИЯ ПРОЕКТА addProject!! 
 
 function	mapDispatchToProps(dispatch)	{
 		return	{

@@ -21,7 +21,7 @@ export default class ProjectEditIcons extends Component {
 
     render(){
         return(
-            <div>
+            <div className = 'project-edit-icons'>
                  <span className = 	'glyphicon glyphicon-pencil' onClick={this.handleStartEditing} > </span> 
                  <span className = 	'glyphicon glyphicon-trash' onClick = {this.handleDelete} > </span> 
             </div>

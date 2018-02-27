@@ -9,7 +9,7 @@ export default class ToDoPage extends Component{
 
     render(){
         return(
-            <div style = {{marginLeft : '40%'}}>
+            <div className = 'todo-main-page'>
                 <Header/>
                 <ToDoList/>            
                 <Footer/>

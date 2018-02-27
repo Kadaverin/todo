@@ -22,13 +22,18 @@ export default class AddTaskForm extends Component{
 
     render(){
         return(
-            <form  onSubmit = {this.handleAddTask}>
+            <div >
+                <form className = 'add-task-form' onSubmit = {this.handleAddTask}>
+                <span className = '	glyphicon glyphicon-plus' > </span>
+                    
                 <input 
                     defaultValue=''
                     ref = 'taskName'
                 />
                  <button type='submit'>Add task</button>
             </form>
+            </div>
+            
         )
     }
 }

@@ -8,6 +8,14 @@
         <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
         <title>Laravel React application</title>
         <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css">
+        <style>
+              body {
+                background-image: url('{{ asset('images/download.jpg')}}');
+                background-size: cover;
+                background-attachment: fixed;
+                font-family: Arial, Helvetica, sans-serif;
+                }
+        </style>
     </head>
     <body>
     <h2 style="text-align: center"> TO DO LIST APP </h2>

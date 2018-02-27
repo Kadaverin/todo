@@ -8350,17 +8350,11 @@ button.close {
   }
 }
 
-.login-form button,
-.auth-page button,
-#submit-register {
-  border-radius: 5px;
-  border: 0;
-  font-weight: 100;
-  color: #333;
-  background-color: white;
-  -webkit-transition: 300ms;
-  transition: 300ms;
-  outline: none;
+.todo-main-page {
+  min-width: 700px;
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .ToDoHeader button {
@@ -8375,8 +8369,15 @@ button.close {
   outline: none;
 }
 
+.ToDoHeader {
+  height: 30px;
+  width: 500px;
+  margin: 0 auto;
+}
+
 .ToDoHeader input {
   height: 30px;
+  width: 300px;
 }
 
 .ToDoHeader button:hover {
@@ -8384,36 +8385,242 @@ button.close {
   background: linear-gradient(to bottom, #0077bc, #91cef2);
 }
 
-#submit-register {
-  margin-top: 20px;
-  width: 100px;
-  height: 30px;
-  -webkit-transition: 300ms;
-  transition: 300ms;
+.project-header {
+  padding-left: 20px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,2989d8+50,7db9e8+100 */
+  background: #4499e9;
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4499e9), color-stop(100%, #08498f));
+  background: -webkit-gradient(linear, left top, left bottom, from(#4499e9), to(#08498f));
+  background: linear-gradient(to bottom, #4499e9 0%, #08498f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4499e9', endColorstr='#08498f', GradientType=0);
+  height: 50px;
 }
 
-.auth-page {
-  width: 300px;
-  height: 300px;
-  padding: 15px;
-  border-radius: 15px;
-  border: 1px solid #333;
-  background-color: #ffea99;
+.project-title {
+  line-height: 50px;
+  color: white;
+}
+
+.project-edit-icons {
+  width: 20%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 0 auto;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: right;
+  padding-right: 5px;
+  line-height: 0.8em;
+  color: white;
+}
+
+.project-edit-icons .glyphicon {
+  margin-left: 10%;
+}
+
+.edit-project-name-form {
+  min-height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-left: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.edit-project-name-form input {
+  margin-left: 3%;
+  width: 90%;
+  height: 35px;
+  padding: 0 0 0 20px;
+}
+
+.edit-project-name-form span {
+  color: white;
+  margin-left: 5%;
+}
+
+.project-title-with-edit-icons {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-right: 5px;
+}
+
+.todo-list {
+  display: inline-block;
+  margin-bottom: 200px;
+  text-align: left;
+  width: 100%;
+}
+
+.todo-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.todo-list li {
+  padding: 0;
+  margin-top: 30px;
+}
+
+.project-tasks-list {
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+}
+
+.project-tasks-list li {
+  margin-top: 0px;
+}
+
+.add-task-form {
+  max-width: 100%;
+  background-color: #D1D1D1;
+  height: 50px;
+  padding: 0 0 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.main {
+.add-task-form input {
+  margin-left: 3%;
+  width: 75%;
+  height: 34px;
+  padding: 0 0 0 20px;
+}
+
+.add-task-form span {
+  margin-left: 4px;
+}
+
+.add-task-form button {
+  background-color: #518A69;
+  height: 34px;
+  width: 20%;
+  margin-right: 20px;
+  line-height: 34px;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 0 6px 6px 0;
+}
+
+.add-task-form button:hover {
+  background-color: teal;
+  cursor: pointer;
+}
+
+.edit-task-name-form {
+  min-height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-left: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.ok-cancel-toolbox {
+  margin-left: 3%;
+  margin-right: 2%;
+  min-height: 35px;
+}
+
+.edit-task-name-form input {
+  margin-left: 3%;
+  width: 90%;
+  height: 35px;
+  padding: 0 0 0 20px;
+}
+
+.simple-project-task {
   width: 100%;
+  display: table;
+  border-spacing: 10px 0;
+  min-height: 50px;
+}
+
+.simple-project-task:hover {
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  background-color: #FCFED6;
+}
+
+.task-title:focus {
+  outline-style: solid;
+  outline-width: 3px;
+  outline-color: #518A69;
+}
+
+.simple-project-task:hover .task-edit-icons span {
+  display: block;
+}
+
+.task-title-with-edit-icons {
+  width: 100%;
+  min-height: 50px;
+  border-left: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.task-title {
+  display: inline-block;
+  padding: 12px 0 0 10px;
+  vertical-align: middle;
+  color: black;
+  min-height: 50px;
   height: 100%;
+  width: 80%;
+  min-width: 500px;
+}
+
+.task-is-done-check-box {
+  display: table-cell;
+  border-right: 1px solid rgba(255, 0, 0, 0.3);
+  vertical-align: middle;
+  width: 5%;
+}
+
+.task-is-done-check-box input {
+  margin: 15px;
+}
+
+.task-edit-icons {
+  height: 100%;
+  float: right;
+}
+
+.task-edit-icons span {
+  display: none;
+  float: right;
+  margin: 10px;
+  cursor: pointer;
 }
 
 .login-form button {
@@ -8448,7 +8655,51 @@ button.close {
   width: 100px;
 }
 
+#logout-btn {
+  float: left;
+}
+
 .switcher {
   margin-bottom: 30px;
+}
+
+.login-form button,
+.auth-page button,
+#submit-register {
+  border-radius: 5px;
+  border: 0;
+  font-weight: 100;
+  color: #333;
+  background-color: white;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  outline: none;
+}
+
+#submit-register {
+  margin-top: 20px;
+  width: 100px;
+  height: 30px;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.auth-page {
+  width: 300px;
+  height: 300px;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid #333;
+  background-color: rgba(255, 250, 206, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 

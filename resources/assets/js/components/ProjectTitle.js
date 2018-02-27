@@ -5,9 +5,8 @@ export default class ProjectTitle extends Component {
 
     render(){
         return (
-            <div>
-                <div className = 'ProjectHeaderTitle' 
-                     style = {{float : 'left'}}>
+            <div className = 'project-title-with-edit-icons'>
+                <div className = 'project-title' >
                     <span className = '	glyphicon '>  &#xe032; {this.props.project.name}  </span>       
                 </div>    
 
@@ -16,7 +15,7 @@ export default class ProjectTitle extends Component {
                             deleteProject = {this.props.deleteProject}
                             startEditing = {this.props.startEditing}
                 />
-                </div>
+            </div>
         )
     }
 }

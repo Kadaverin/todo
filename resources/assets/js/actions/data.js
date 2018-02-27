@@ -7,7 +7,7 @@ import get from '../helpers/requests/getDataFunction';
 export function fetch_users_todo(){
     return dispatch =>{
         dispatch(fetchTodoRequest())
-        return get('api/get_users_todo_list').then(
+        return get('/api/get_users_todo_list').then(
 
             response =>{
                 console.log (response);

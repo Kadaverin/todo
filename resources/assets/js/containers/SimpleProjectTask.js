@@ -47,7 +47,7 @@
 
     render(){
         return(
-            <div>
+            <div className = 'simple-project-task'>
                  <TaskIsDoneCheckBox
                     taskIsDone = {this.props.task.isDone}
                     handleCheck = {this.props.changeTaskStatus}
@@ -57,7 +57,7 @@
                !this.state.taskNameIsEditing 
                ?
                  <TaskTitle
-                     trackChangesOfTasksOrder = {this.props.trackChangesOfTasksOrder}
+                    trackChangesOfTasksOrder = {this.props.trackChangesOfTasksOrder}
                     indexInTasksIdsArray = {this.props.indexInTasksIdsArray}
                     taskIsActive = {this.state.taskIsActive}
                     makeTaskActive = {this.makeTaskActive}

@@ -30,14 +30,14 @@ class TasksController extends Controller
     public function changeTaskStatus(Request $request){
         $targetTask = Task::find($request->input('id'));
         $targetTask->isDone =  !$targetTask->isDone;
-         return $targetTask->save() ?  response()->json(200) : response()->json(400);
+        return $targetTask->save() ?  response()->json(200) : response()->json(400);
     }
 
     public function updateTasksList(Request $request){
 
-        foreach ( $request->all() as $a){
-            $task = Task::find($a['id']); 
-            $task->update (['priority' => $a['priority']]);
+        foreach ( $request->all() as $taskIdWithPriorityArr){
+            $task = Task::find($taskIdWithPriorityArr['id']); 
+            $task->update (['priority' => $taskIdWithPriorityArr['priority']]);
         }
 
         return response()->json($request->all() , 200);

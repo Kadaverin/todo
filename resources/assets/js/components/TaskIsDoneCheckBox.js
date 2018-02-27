@@ -1,7 +1,7 @@
 import React from 'react';
 
  const TaskIsDoneCheckBox = (props) => 
-     <div style = {{float : 'left' , marginLeft : 0 , padding : 0}}>
+     <div className = 'task-is-done-check-box' >
         <input 
             type="checkbox" 
             onChange={ () => props.handleCheck(props.taskId) } 

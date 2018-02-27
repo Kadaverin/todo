@@ -767,6 +767,27 @@ function post(url, requestuestBody) {
   });
 }
 
+function request(requesttype, url, requestuestBody) {
+
+  return new Promise(function (resolve, reject) {
+    var req = new XMLHttpRequest();
+
+    req.open(requesttype, url);
+    Object(__WEBPACK_IMPORTED_MODULE_0__setHeaders__["a" /* default */])(req);
+
+    req.onload = function () {
+
+      if (req.status < 400) resolve(JSON.parse(req.response));else reject(new Error("Request failed: " + req.statusText + ' ' + req.status));
+    };
+
+    req.onerror = function () {
+      reject(new Error("Network error"));
+    };
+
+    req.send(requestuestBody);
+  });
+}
+
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
@@ -2280,7 +2301,7 @@ function addProject(projectName) {
     return function (dispatch) {
 
         //        dispatch( addProjectRequest());
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/add_project', JSON.stringify({ name: projectName })).then(function (addedProject) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/add_project', JSON.stringify({ name: projectName })).then(function (addedProject) {
             dispatch(addProjectSucess(addedProject));
         }, function (error) {
             dispatch(addProjectError(error.message));
@@ -2290,7 +2311,7 @@ function addProject(projectName) {
 
 function deleteProject(targetId) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/delete_project', JSON.stringify({ id: targetId })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/delete_project', JSON.stringify({ id: targetId })).then(function (success) {
             dispatch(deleteProjectSuccess(targetId));
         }, function (error) {
             dispatch(deleteProjectError(error.message));
@@ -2300,7 +2321,7 @@ function deleteProject(targetId) {
 
 function editProjectTitle(targetId, newName) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/edit_project_title', JSON.stringify({ id: targetId, newName: newName })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/edit_project_title', JSON.stringify({ id: targetId, newName: newName })).then(function (success) {
             dispatch(editProjectTitleSuccess(targetId, newName));
         }, function (error) {
             dispatch(editProjectTitleError(error.message));
@@ -2386,7 +2407,7 @@ function login(userInfo) {
     return function (dispatch) {
 
         dispatch(loginRequest());
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/login', JSON.stringify(userInfo)).then(function (responseData) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/login', JSON.stringify(userInfo)).then(function (responseData) {
             localStorage.setItem("token", responseData.token);
             dispatch(logined(userInfo));
         }, function (error) {
@@ -2400,7 +2421,7 @@ function register(userInfo) {
     return function (dispatch) {
 
         dispatch(registerRequest());
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/register', JSON.stringify(userInfo)).then(function (responseData) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/register', JSON.stringify(userInfo)).then(function (responseData) {
             dispatch(registered());
             localStorage.setItem("token", responseData.token);
         }, function (error) {
@@ -2509,7 +2530,7 @@ var ProjectEditIcons = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'project-edit-icons' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     { className: 'glyphicon glyphicon-pencil', onClick: this.handleStartEditing },
@@ -2580,16 +2601,25 @@ var AddTaskForm = function (_Component) {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                { onSubmit: this.handleAddTask },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-                    defaultValue: '',
-                    ref: 'taskName'
-                }),
+                'div',
+                null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { type: 'submit' },
-                    'Add task'
+                    'form',
+                    { className: 'add-task-form', onSubmit: this.handleAddTask },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: '\tglyphicon glyphicon-plus' },
+                        ' '
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                        defaultValue: '',
+                        ref: 'taskName'
+                    }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { type: 'submit' },
+                        'Add task'
+                    )
                 )
             );
         }
@@ -2643,7 +2673,7 @@ function changeTaskStatus(id) {
 
 function addTask(name, projectId, priority) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/add_task', JSON.stringify({ name: name, project_id: projectId, priority: priority })).then(function (addedTask) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/add_task', JSON.stringify({ name: name, project_id: projectId, priority: priority })).then(function (addedTask) {
             dispatch(addTaskSucess(addedTask));
         }, function (error) {
             dispatch(addTaskError(error.message));
@@ -2653,7 +2683,7 @@ function addTask(name, projectId, priority) {
 
 function deleteTask(targetId) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/delete_task', JSON.stringify({ id: targetId })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/delete_task', JSON.stringify({ id: targetId })).then(function (success) {
             dispatch(deleteTaskSuccess(targetId));
         }, function (error) {
             dispatch(deleteTaskError(error.message));
@@ -2663,7 +2693,7 @@ function deleteTask(targetId) {
 
 function editTaskTitle(targetId, newName) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/edit_task_title', JSON.stringify({ id: targetId, newName: newName })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/edit_task_title', JSON.stringify({ id: targetId, newName: newName })).then(function (success) {
             dispatch(editTaskTitleSuccess(targetId, newName));
         }, function (error) {
             dispatch(editTaskTitleError(error.message));
@@ -51057,12 +51087,6 @@ var AuthContainer = function (_Component) {
         return _this;
     }
 
-    // componentWillMount(){
-    //      if (localStorage.getItem('token') !== null) {
-    //          this.props.autoLoginFunc();
-    //      }
-    // }
-
     _createClass(AuthContainer, [{
         key: 'changeFormToLoginForm',
         value: function changeFormToLoginForm(e) {
@@ -51346,7 +51370,7 @@ var ToDoPage = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { style: { marginLeft: '40%' } },
+                { className: 'todo-main-page' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Header__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ToDoList__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Footer__["a" /* default */], null)
@@ -53236,9 +53260,12 @@ var Header = function (_Component) {
     _createClass(Header, [{
         key: 'handleLogout',
         value: function handleLogout() {
+<<<<<<< HEAD
 
             //перенести в экшн , обновить состояние isAuth
             console.log(' DELETEING TOKEN ');
+=======
+>>>>>>> css
             localStorage.removeItem('token');
             this.props.logout();
         }
@@ -53251,7 +53278,7 @@ var Header = function (_Component) {
                 { className: 'ToDoHeader' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
-                    { onClick: this.handleLogout, style: { float: 'left' } },
+                    { onClick: this.handleLogout, id: 'logout-btn' },
                     '  logout '
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_AddProjectForm__["a" /* default */], { addProject: this.props.addProject }),
@@ -53262,8 +53289,6 @@ var Header = function (_Component) {
 
     return Header;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-// ПРИКОНЕКТИТЬ , СДЕЛАТЬ ЭКШЕНЫ ДЛЯ ЛОГАУТА И ДЛЯ ДОБАВЛЕНИЯ ПРОЕКТА addProject!! 
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -53315,9 +53340,7 @@ var AddProject = function (_Component) {
             var projectName = projectNameInput.value.trim();
             if (!projectName) return;
 
-            //диспатчим экшн для добавления тудушки 
             this.props.addProject(projectName);
-            // alert ('Имя нового проекта ' + projectName);
             projectNameInput.value = '';
         }
     }, {
@@ -53325,16 +53348,20 @@ var AddProject = function (_Component) {
         value: function render() {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                { onSubmit: this.handleAddProject },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-                    defaultValue: '',
-                    ref: 'projectName'
-                }),
+                'div',
+                { className: 'add-project-form' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { type: 'submit' },
-                    ' Add project'
+                    'form',
+                    { onSubmit: this.handleAddProject },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                        defaultValue: '',
+                        ref: 'projectName'
+                    }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { type: 'submit' },
+                        ' Add project'
+                    )
                 )
             );
         }
@@ -53468,7 +53495,6 @@ function mapDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddTaskForm__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditTitleForm__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ProjectTitle__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_requests_postDataFunction__ = __webpack_require__(9);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53476,7 +53502,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -53511,7 +53536,7 @@ var ProjectHeader = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'project-header' },
                 !this.state.titleIsEditing ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ProjectTitle__["a" /* default */], {
                     project: this.props.project,
                     deleteProject: this.props.deleteProject,
@@ -53566,7 +53591,6 @@ var EditTitleForm = function (_Component) {
     _createClass(EditTitleForm, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            //findDOMNode(this.refs.newProjectTitle).focus();
             this.newProjectTitleInput.focus();
         }
     }, {
@@ -53593,7 +53617,7 @@ var EditTitleForm = function (_Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'edit-project-name-form' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
                     defaultValue: this.props.project.name,
                     ref: function ref(newProjectTitle) {
@@ -53601,14 +53625,18 @@ var EditTitleForm = function (_Component) {
                     }
                 }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    { className: 'glyphicon glyphicon-ok', onClick: this.handleUpdateTitle },
-                    ' '
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    { className: 'glyphicon glyphicon-remove', onClick: this.cancelEditing },
-                    ' '
+                    'div',
+                    { clsssName: 'ok-cancel-toolbox' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'glyphicon glyphicon-ok', onClick: this.handleUpdateTitle },
+                        ' '
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'glyphicon glyphicon-remove', onClick: this.cancelEditing },
+                        ' '
+                    )
                 )
             );
         }
@@ -53652,11 +53680,10 @@ var ProjectTitle = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'project-title-with-edit-icons' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'ProjectHeaderTitle',
-                        style: { float: 'left' } },
+                    { className: 'project-title' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'span',
                         { className: '\tglyphicon ' },
@@ -53751,7 +53778,7 @@ var ProjectTasksList = function (_Component) {
         key: 'trackChangesOfTasksOrder',
         value: function trackChangesOfTasksOrder() {
             this.tasksOrderIsChanged = true;
-            console.log("TRACKING" + this.tasksOrderIsChanged);
+            console.log("TRACKING " + this.tasksOrderIsChanged);
         }
     }, {
         key: 'up',
@@ -53785,7 +53812,7 @@ var ProjectTasksList = function (_Component) {
                 }),
                 tasksIds ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'ul',
-                    null,
+                    { className: 'project-tasks-list' },
                     tasksIds.map(function (taskId, index) {
                         var task = _this2.props.tasksById[taskId];
                         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -53917,7 +53944,7 @@ var SimpleProjectTask = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'simple-project-task' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_TaskIsDoneCheckBox__["a" /* default */], {
                     taskIsDone: this.props.task.isDone,
                     handleCheck: this.props.changeTaskStatus,
@@ -54029,17 +54056,23 @@ var TaskTitle = function (_Component) {
         value: function handleKeyDown(e) {
             //  console.log('KEYDOWN  ' + e.keyCode + ' IN ' +  this.props.task.name);
             if (e.keyCode === 38) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+
                 this.props.moveUpTask(this.props.indexInTasksIdsArray, this.props.task.id);
                 this.props.trackChangesOfTasksOrder();
                 this.props.up();
-                e.stopPropagation();
             }
 
             if (e.keyCode === 40) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+
                 this.props.moveDownTask(this.props.indexInTasksIdsArray, this.props.task.id);
                 this.props.trackChangesOfTasksOrder();
                 this.props.up();
-                e.stopPropagation();
             }
         }
     }, {
@@ -54050,10 +54083,10 @@ var TaskTitle = function (_Component) {
             //   console.log('RENDER ' + this.props.task.name);
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'task-title-with-edit-icons' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'TaskHeaderTitle',
+                    { className: 'task-title',
                         tabIndex: '-1',
                         ref: function ref(taskTitleDiv) {
                             return _this2.activeTask = taskTitleDiv;
@@ -54128,10 +54161,10 @@ var TaskEditIcons = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'task-edit-icons' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
-                    { className: 'glyphicon glyphicon-sort', style: this.props.taskIsActive ? { color: 'orange' } : {} },
+                    { className: 'glyphicon glyphicon-trash', onClick: this.handleDelete },
                     ' '
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -54141,7 +54174,7 @@ var TaskEditIcons = function (_Component) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
-                    { className: 'glyphicon glyphicon-trash', onClick: this.handleDelete },
+                    { className: 'glyphicon glyphicon-sort', style: this.props.taskIsActive ? { color: 'orange' } : {} },
                     ' '
                 )
             );
@@ -54216,7 +54249,7 @@ var EditTaskNameForm = function (_Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'edit-task-name-form' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
                     defaultValue: this.props.task.name,
                     ref: function ref(newTaskTitle) {
@@ -54224,14 +54257,18 @@ var EditTaskNameForm = function (_Component) {
                     }
                 }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    { className: 'glyphicon glyphicon-ok', onClick: this.handleUpdateTitle },
-                    ' '
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    { className: 'glyphicon glyphicon-remove', onClick: this.cancelEditing },
-                    ' '
+                    'div',
+                    { className: 'ok-cancel-toolbox' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'glyphicon glyphicon-ok', onClick: this.handleUpdateTitle },
+                        ' '
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'glyphicon glyphicon-remove', onClick: this.cancelEditing },
+                        ' '
+                    )
                 )
             );
         }
@@ -54254,7 +54291,7 @@ var EditTaskNameForm = function (_Component) {
 var TaskIsDoneCheckBox = function TaskIsDoneCheckBox(props) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { style: { float: 'left', marginLeft: 0, padding: 0 } },
+        { className: 'task-is-done-check-box' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
             type: 'checkbox',
             onChange: function onChange() {
@@ -54306,7 +54343,7 @@ function debounce(func, wait, immediate) {
 function fetch_users_todo() {
     return function (dispatch) {
         dispatch(fetchTodoRequest());
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_getDataFunction__["a" /* default */])('api/get_users_todo_list').then(function (response) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_getDataFunction__["a" /* default */])('/api/get_users_todo_list').then(function (response) {
             console.log(response);
             dispatch(fetchTodoSuccess(response));
         }, function (error) {
@@ -54484,6 +54521,9 @@ function projects() {
         });
         return newProjects;
       }
+    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["u" /* LOGOUT */]:
+      return [];
+      break;
 
     default:
       return state;
@@ -54509,146 +54549,152 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  tasksById: {},
-  projectsTasksIds: {}
+        tasksById: {},
+        projectsTasksIds: {}
 };
 
 function tasks() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
+        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+        var action = arguments[1];
 
-  switch (action.type) {
+        switch (action.type) {
 
-    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["q" /* FETCH_USERS_TODO_SUCCESS */]:
-      return _extends({}, state, {
-        tasksById: _extends({}, action.payload.tasksById),
-        projectsTasksIds: _extends({}, action.payload.projectsTasksIds)
-      });
-      break;
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["q" /* FETCH_USERS_TODO_SUCCESS */]:
+                        return _extends({}, state, {
+                                tasksById: _extends({}, action.payload.tasksById),
+                                projectsTasksIds: _extends({}, action.payload.projectsTasksIds)
+                        });
+                        break;
 
-    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["f" /* CHANGE_TASK_STATUS_SUCCESS */]:
-      {
-        var id = action.payload.id;
-        return _extends({}, state, {
-          tasksById: _extends({}, state.tasksById, _defineProperty({}, id, _extends({}, state.tasksById[id], { isDone: !state.tasksById[id].isDone })))
-        });
-      }
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["f" /* CHANGE_TASK_STATUS_SUCCESS */]:
+                        {
+                                var id = action.payload.id;
+                                return _extends({}, state, {
+                                        tasksById: _extends({}, state.tasksById, _defineProperty({}, id, _extends({}, state.tasksById[id], { isDone: !state.tasksById[id].isDone })))
+                                });
+                        }
 
-    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["w" /* MOVE_UP_TASK */]:
-      {
-        var taskId = action.payload.id;
-        var project_id = state.tasksById[taskId].project_id;
-        var currentIndex = action.payload.currentIndex;
-        var newTasksIds = [].concat(_toConsumableArray(state.projectsTasksIds[project_id]));
-        Object(__WEBPACK_IMPORTED_MODULE_1__helpers_data_arrays__["b" /* moveArrEllementUpOrInTail */])(newTasksIds, currentIndex);
-        return _extends({}, state, {
-          projectsTasksIds: _extends({}, state.projectsTasksIds, _defineProperty({}, project_id, newTasksIds))
-        });
-      }
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["w" /* MOVE_UP_TASK */]:
+                        {
+                                var taskId = action.payload.id;
+                                var project_id = state.tasksById[taskId].project_id;
+                                var currentIndex = action.payload.currentIndex;
+                                var newTasksIds = [].concat(_toConsumableArray(state.projectsTasksIds[project_id]));
+                                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_data_arrays__["b" /* moveArrEllementUpOrInTail */])(newTasksIds, currentIndex);
+                                return _extends({}, state, {
+                                        projectsTasksIds: _extends({}, state.projectsTasksIds, _defineProperty({}, project_id, newTasksIds))
+                                });
+                        }
 
-    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["v" /* MOVE_DOWN_TASK */]:
-      {
-        var _taskId = action.payload.id;
-        var _project_id = state.tasksById[_taskId].project_id;
-        var _currentIndex = action.payload.currentIndex;
-        var _newTasksIds = [].concat(_toConsumableArray(state.projectsTasksIds[_project_id]));
-        Object(__WEBPACK_IMPORTED_MODULE_1__helpers_data_arrays__["a" /* moveArrEllementDownOrInHead */])(_newTasksIds, _currentIndex);
-        return _extends({}, state, {
-          projectsTasksIds: _extends({}, state.projectsTasksIds, _defineProperty({}, _project_id, _newTasksIds))
-        });
-      }
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["v" /* MOVE_DOWN_TASK */]:
+                        {
+                                var _taskId = action.payload.id;
+                                var _project_id = state.tasksById[_taskId].project_id;
+                                var _currentIndex = action.payload.currentIndex;
+                                var _newTasksIds = [].concat(_toConsumableArray(state.projectsTasksIds[_project_id]));
+                                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_data_arrays__["a" /* moveArrEllementDownOrInHead */])(_newTasksIds, _currentIndex);
+                                return _extends({}, state, {
+                                        projectsTasksIds: _extends({}, state.projectsTasksIds, _defineProperty({}, _project_id, _newTasksIds))
+                                });
+                        }
 
-    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["n" /* EDIT_TASK_TITLE_SUCCESS */]:
-      {
-        var targetId = action.payload.id;
-        var updatedTask = _extends({}, state.tasksById[targetId]);
-        updatedTask.name = action.payload.newName;
-        return _extends({}, state, {
-          tasksById: _extends({}, state.tasksById, _defineProperty({}, targetId, updatedTask))
-        });
-      }
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["n" /* EDIT_TASK_TITLE_SUCCESS */]:
+                        {
+                                var targetId = action.payload.id;
+                                var updatedTask = _extends({}, state.tasksById[targetId]);
+                                updatedTask.name = action.payload.newName;
+                                return _extends({}, state, {
+                                        tasksById: _extends({}, state.tasksById, _defineProperty({}, targetId, updatedTask))
+                                });
+                        }
 
-    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["j" /* DELETE_TASK_SUCCESS */]:
-      {
-        var _id = action.payload;
-        var _project_id2 = state.tasksById[_id].project_id;
-        var newTasksIdsOfTargetProject = state.projectsTasksIds[_project_id2].filter(function (deletedId) {
-          return deletedId !== _id;
-        });
-        var _newTasksIds2 = _extends({}, state.projectsTasksIds, _defineProperty({}, _project_id2, newTasksIdsOfTargetProject));
-        var newTasksList = state.tasksById;
-        delete newTasksList[_id];
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["j" /* DELETE_TASK_SUCCESS */]:
+                        {
+                                var _id = action.payload;
+                                var _project_id2 = state.tasksById[_id].project_id;
+                                var newTasksIdsOfTargetProject = state.projectsTasksIds[_project_id2].filter(function (deletedId) {
+                                        return deletedId !== _id;
+                                });
+                                var _newTasksIds2 = _extends({}, state.projectsTasksIds, _defineProperty({}, _project_id2, newTasksIdsOfTargetProject));
+                                var newTasksList = state.tasksById;
+                                delete newTasksList[_id];
 
-        return _extends({}, state, {
-          tasksById: newTasksList,
-          projectsTasksIds: _newTasksIds2
-        });
-      }
-      break;
+                                return _extends({}, state, {
+                                        tasksById: newTasksList,
+                                        projectsTasksIds: _newTasksIds2
+                                });
+                        }
+                        break;
 
-    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["c" /* ADD_TASK_SUCCESS */]:
-      {
-        var _id2 = action.payload.id;
-        var _project_id3 = action.payload.project_id;
-        var currentProjectTasksIds = state.projectsTasksIds[_project_id3];
-        var _newTasksList = state.tasksById;
-        var _newTasksIds3 = void 0;
-        _newTasksList[_id2] = action.payload;
-        if (currentProjectTasksIds) {
-          _newTasksIds3 = _extends({}, state.projectsTasksIds, _defineProperty({}, _project_id3, [].concat(_toConsumableArray(currentProjectTasksIds), [_id2])));
-        } else {
-          _newTasksIds3 = _extends({}, state.projectsTasksIds, _defineProperty({}, _project_id3, [_id2]));
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["c" /* ADD_TASK_SUCCESS */]:
+                        {
+                                var _id2 = action.payload.id;
+                                var _project_id3 = action.payload.project_id;
+                                var currentProjectTasksIds = state.projectsTasksIds[_project_id3];
+                                var _newTasksList = state.tasksById;
+                                var _newTasksIds3 = void 0;
+                                _newTasksList[_id2] = action.payload;
+                                if (currentProjectTasksIds) {
+                                        _newTasksIds3 = _extends({}, state.projectsTasksIds, _defineProperty({}, _project_id3, [].concat(_toConsumableArray(currentProjectTasksIds), [_id2])));
+                                } else {
+                                        _newTasksIds3 = _extends({}, state.projectsTasksIds, _defineProperty({}, _project_id3, [_id2]));
+                                }
+                                return _extends({}, state, {
+                                        tasksById: _newTasksList,
+                                        projectsTasksIds: _newTasksIds3
+                                });
+                        }
+                        break;
+
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["h" /* DELETE_PROJECT_SUCCESS */]:
+                        {
+                                var deleted_project_id = action.payload;
+                                var _newTasksIds4 = _extends({}, state.projectsTasksIds);
+                                var _newTasksList2 = _extends({}, state.tasksById);
+                                var tasksIdsToDelete = _newTasksIds4[deleted_project_id];
+                                delete _newTasksIds4[deleted_project_id];
+                                if (tasksIdsToDelete) {
+                                        var _iteratorNormalCompletion = true;
+                                        var _didIteratorError = false;
+                                        var _iteratorError = undefined;
+
+                                        try {
+                                                for (var _iterator = tasksIdsToDelete[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                                        var _id3 = _step.value;
+
+                                                        delete _newTasksList2[_id3];
+                                                }
+                                        } catch (err) {
+                                                _didIteratorError = true;
+                                                _iteratorError = err;
+                                        } finally {
+                                                try {
+                                                        if (!_iteratorNormalCompletion && _iterator.return) {
+                                                                _iterator.return();
+                                                        }
+                                                } finally {
+                                                        if (_didIteratorError) {
+                                                                throw _iteratorError;
+                                                        }
+                                                }
+                                        }
+                                }
+                                return _extends({}, state, {
+                                        tasksById: _newTasksList2,
+                                        projectsTasksIds: _newTasksIds4
+                                });
+                        }
+                        break;
+
+                case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["u" /* LOGOUT */]:
+                        return {
+                                tasksById: {},
+                                projectsTasksIds: {}
+                        };
+
+                default:
+                        return state;
         }
-        return _extends({}, state, {
-          tasksById: _newTasksList,
-          projectsTasksIds: _newTasksIds3
-        });
-      }
-      break;
-
-    case __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__["h" /* DELETE_PROJECT_SUCCESS */]:
-      {
-        var deleted_project_id = action.payload;
-        var _newTasksIds4 = _extends({}, state.projectsTasksIds);
-        var _newTasksList2 = _extends({}, state.tasksById);
-        var tasksIdsToDelete = _newTasksIds4[deleted_project_id];
-        delete _newTasksIds4[deleted_project_id];
-        if (tasksIdsToDelete) {
-          var _iteratorNormalCompletion = true;
-          var _didIteratorError = false;
-          var _iteratorError = undefined;
-
-          try {
-            for (var _iterator = tasksIdsToDelete[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              var _id3 = _step.value;
-
-              delete _newTasksList2[_id3];
-            }
-          } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion && _iterator.return) {
-                _iterator.return();
-              }
-            } finally {
-              if (_didIteratorError) {
-                throw _iteratorError;
-              }
-            }
-          }
-        }
-        return _extends({}, state, {
-          tasksById: _newTasksList2,
-          projectsTasksIds: _newTasksIds4
-        });
-      }
-      break;
-
-    default:
-      return state;
-  }
 }
 
 /***/ }),

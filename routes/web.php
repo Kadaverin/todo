@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/{any}', function ($any) {
+   return view('welcome');
+})->where('any', '.*');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('register', 'Auth\RegisterController@register');
+//Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
+// Route::post('register', 'Auth\RegisterController@register');

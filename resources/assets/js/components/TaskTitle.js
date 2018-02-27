@@ -46,32 +46,39 @@ constructor(props){
     handleKeyDown(e){
       //  console.log('KEYDOWN  ' + e.keyCode + ' IN ' +  this.props.task.name);
         if (e.keyCode === 38) { 
+            e.preventDefault()
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
+
             this.props.moveUpTask( this.props.indexInTasksIdsArray , this.props.task.id); 
             this.props.trackChangesOfTasksOrder();
             this.props.up();
-            e.stopPropagation();
         }
 
         if (e.keyCode === 40) { 
+            e.preventDefault()
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
+
             this.props.moveDownTask( this.props.indexInTasksIdsArray , this.props.task.id); 
             this.props.trackChangesOfTasksOrder();
             this.props.up();
-            e.stopPropagation();
         }
     }
 
     render(){
      //   console.log('RENDER ' + this.props.task.name);
         return (
-            <div>
+            <div className = 'task-title-with-edit-icons'>
                 {/*ПОПРОВИТЬ ПЕРЕМЕЩЕНИЕ ТАСОК ЧЕРЕЗ КРАЙ МАССИВА !!!ТУТ ЧЕКБОКС КОТОРЫЙ БУДЕТ ОТОБРАЖАТЬ СТАТУС ТАСКИ . Если сделана - то галочка*/}
-                <div className = 'TaskHeaderTitle'
+                <div className = 'task-title'
                      tabIndex="-1"
                      ref = { (taskTitleDiv) => this.activeTask = taskTitleDiv } 
                      onClick = { this.handleClickOnTaskTitle }
                      onKeyDown = { this.handleKeyDown }       
                 >
-                   { this.props.task.name }        
+                   { this.props.task.name }   
+                   {/*<span className = 'glyphicon glyphicon-sort' id = 'focused-task-sort-icon' > </span>  */}
                 </div>    
                 
                 <TaskEditIcons 

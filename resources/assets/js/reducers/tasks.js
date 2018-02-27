@@ -12,7 +12,7 @@ import
         MOVE_UP_TASK,
         MOVE_DOWN_TASK,
         DELETE_TASK,
-        UPDATE_TASK,} from '../constants/ActionTypes';
+        UPDATE_TASK, LOGOUT} from '../constants/ActionTypes';
 
 import { moveArrEllementUpOrInTail , moveArrEllementDownOrInHead } from '../helpers/data/arrays';
 
@@ -62,7 +62,7 @@ export default function tasks (state = initialState , action){
                     }
                   }
 
-                                case MOVE_DOWN_TASK :
+                case MOVE_DOWN_TASK :
                   {
                     let taskId = action.payload.id;
                     let project_id = state.tasksById[ taskId ].project_id ;
@@ -81,8 +81,7 @@ export default function tasks (state = initialState , action){
 
 
 
-           case EDIT_TASK_TITLE_SUCCESS :
-                {
+           case EDIT_TASK_TITLE_SUCCESS : {
                   let targetId =  action.payload.id;
                   let updatedTask = { ... state.tasksById[ targetId ] };
                   updatedTask.name = action.payload.newName;
@@ -97,8 +96,7 @@ export default function tasks (state = initialState , action){
 
 
         
-            case DELETE_TASK_SUCCESS : 
-                {
+            case DELETE_TASK_SUCCESS : {
                   let id = action.payload;
                   let project_id = state.tasksById[id].project_id ;
                   let newTasksIdsOfTargetProject = state.projectsTasksIds[project_id].filter( deletedId => deletedId !== id);
@@ -114,8 +112,7 @@ export default function tasks (state = initialState , action){
                 }
               break;
 
-            case ADD_TASK_SUCCESS : 
-                {
+            case ADD_TASK_SUCCESS : {
                   let id = action.payload.id;
                   let project_id = action.payload.project_id
                   let currentProjectTasksIds = state.projectsTasksIds[project_id];
@@ -135,8 +132,7 @@ export default function tasks (state = initialState , action){
                 }
               break;
 
-            case DELETE_PROJECT_SUCCESS : 
-               {
+            case DELETE_PROJECT_SUCCESS : {
                  let deleted_project_id = action.payload;
                  let newTasksIds = { ... state.projectsTasksIds } ;
                  let newTasksList = { ... state.tasksById};
@@ -154,6 +150,13 @@ export default function tasks (state = initialState , action){
                        }
                }  
              break;
+
+             case LOGOUT : 
+                 return {
+                               tasksById : { } ,
+                               projectsTasksIds : {}
+                           }
+              
 
             default : return state;
          }

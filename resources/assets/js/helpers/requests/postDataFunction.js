@@ -26,3 +26,29 @@ export default function post( url , requestuestBody) {
   });
 }
 
+ function request( requesttype , url , requestuestBody) {
+  
+  return new Promise(function(resolve, reject) {
+    var req = new XMLHttpRequest();
+    
+    req.open(requesttype , url );
+    setHeaders(req)
+    
+    req.onload =  function() {
+
+      if (req.status < 400)
+        resolve(JSON.parse(req.response));
+      else
+        reject(new Error("Request failed: " + req.statusText +' '+req.status ));
+    };
+
+    req.onerror  =  function() {
+     reject(new Error("Network error"));
+    };
+
+    req.send(requestuestBody);
+
+  });
+}
+
+

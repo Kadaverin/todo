@@ -28,7 +28,7 @@ export  class ToDoList extends Component {
                         addTask = {this.props.addTask} 
                      /> 
 
-                    <ProjectTasksList 
+                    <ProjectTasksList  
                         project = {project}           
                     />   
                 </li>

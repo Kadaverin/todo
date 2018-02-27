@@ -14,22 +14,23 @@ export default class AddProject extends Component{
         const projectName = projectNameInput.value.trim();
         if(!projectName) return;
 
-        //диспатчим экшн для добавления тудушки 
         this.props.addProject( projectName )
-       // alert ('Имя нового проекта ' + projectName);
         projectNameInput.value = '';
     }
 
     render(){
 
         return(
-            <form  onSubmit = {this.handleAddProject}>
+            <div className = 'add-project-form'>
+                <form  onSubmit = {this.handleAddProject}>
                 <input 
                     defaultValue=''
                     ref = 'projectName'
                 />
                 <button type='submit'> Add project</button>
-            </form>
+              </form>
+            </div>
+            
            
         )
     }
