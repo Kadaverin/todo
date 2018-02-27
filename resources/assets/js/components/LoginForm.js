@@ -45,6 +45,7 @@ export default  class LoginForm extends Component {
 
                     <input
                         defaultValue=''
+                        type = 'password'
                         placeholder='Password'
                         ref='password'
                     /> <br/>

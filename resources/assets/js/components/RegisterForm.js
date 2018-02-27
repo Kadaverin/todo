@@ -40,19 +40,19 @@ export default class RegisterForm extends Component {
                   <br/>
 
                   <input 
-                      type="text" 
+                      type="email" 
                       placeholder = 'Email'
                       ref = 'email' />
                   <br/>
               
                   <input 
-                      type="text" 
+                      type = 'password'
                       placeholder = 'Password'
                       ref = 'password'/>
                   <br/>
               
                   <input 
-                      type="text" 
+                      type = 'password'
                       placeholder = 'Confirm password'
                       ref = 'password_confirm'/>
                   <br/>
