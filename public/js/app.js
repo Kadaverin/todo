@@ -738,57 +738,7 @@ if (true) {
 module.exports = warning;
 
 /***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = post;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setHeaders__ = __webpack_require__(33);
-
-
-function post(url, requestuestBody) {
-
-  return new Promise(function (resolve, reject) {
-    var req = new XMLHttpRequest();
-
-    req.open("POST", url);
-    Object(__WEBPACK_IMPORTED_MODULE_0__setHeaders__["a" /* default */])(req);
-
-    req.onload = function () {
-
-      if (req.status < 400) resolve(JSON.parse(req.response));else reject(new Error("Request failed: " + req.statusText + ' ' + req.status));
-    };
-
-    req.onerror = function () {
-      reject(new Error("Network error"));
-    };
-
-    req.send(requestuestBody);
-  });
-}
-
-function request(requesttype, url, requestuestBody) {
-
-  return new Promise(function (resolve, reject) {
-    var req = new XMLHttpRequest();
-
-    req.open(requesttype, url);
-    Object(__WEBPACK_IMPORTED_MODULE_0__setHeaders__["a" /* default */])(req);
-
-    req.onload = function () {
-
-      if (req.status < 400) resolve(JSON.parse(req.response));else reject(new Error("Request failed: " + req.statusText + ' ' + req.status));
-    };
-
-    req.onerror = function () {
-      reject(new Error("Network error"));
-    };
-
-    req.send(requestuestBody);
-  });
-}
-
-/***/ }),
+/* 9 */,
 /* 10 */
 /***/ (function(module, exports) {
 
@@ -2292,7 +2242,7 @@ function verifyPlainObject(value, displayName, methodName) {
 /* harmony export (immutable) */ __webpack_exports__["b"] = deleteProject;
 /* harmony export (immutable) */ __webpack_exports__["c"] = editProjectTitle;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__ = __webpack_require__(144);
 
 
 
@@ -2301,7 +2251,7 @@ function addProject(projectName) {
     return function (dispatch) {
 
         //        dispatch( addProjectRequest());
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/add_project', JSON.stringify({ name: projectName })).then(function (addedProject) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('POST', '/api/add_project', JSON.stringify({ name: projectName })).then(function (addedProject) {
             dispatch(addProjectSucess(addedProject));
         }, function (error) {
             dispatch(addProjectError(error.message));
@@ -2311,7 +2261,7 @@ function addProject(projectName) {
 
 function deleteProject(targetId) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/delete_project', JSON.stringify({ id: targetId })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('DELETE', '/api/delete_project', JSON.stringify({ id: targetId })).then(function (success) {
             dispatch(deleteProjectSuccess(targetId));
         }, function (error) {
             dispatch(deleteProjectError(error.message));
@@ -2321,7 +2271,7 @@ function deleteProject(targetId) {
 
 function editProjectTitle(targetId, newName) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/edit_project_title', JSON.stringify({ id: targetId, newName: newName })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('PUT', '/api/edit_project_title', JSON.stringify({ id: targetId, newName: newName })).then(function (success) {
             dispatch(editProjectTitleSuccess(targetId, newName));
         }, function (error) {
             dispatch(editProjectTitleError(error.message));
@@ -2398,7 +2348,7 @@ function setHeaders(req) {
 /* harmony export (immutable) */ __webpack_exports__["c"] = logout;
 /* harmony export (immutable) */ __webpack_exports__["a"] = autoLogin;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__ = __webpack_require__(144);
 
 
 
@@ -2407,7 +2357,7 @@ function login(userInfo) {
     return function (dispatch) {
 
         dispatch(loginRequest());
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/login', JSON.stringify(userInfo)).then(function (responseData) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('POST', '/api/login', JSON.stringify(userInfo)).then(function (responseData) {
             localStorage.setItem("token", responseData.token);
             dispatch(logined(userInfo));
         }, function (error) {
@@ -2421,7 +2371,7 @@ function register(userInfo) {
     return function (dispatch) {
 
         dispatch(registerRequest());
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/register', JSON.stringify(userInfo)).then(function (responseData) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('POST', '/api/register', JSON.stringify(userInfo)).then(function (responseData) {
             dispatch(registered());
             localStorage.setItem("token", responseData.token);
         }, function (error) {
@@ -2642,7 +2592,7 @@ var AddTaskForm = function (_Component) {
 /* harmony export (immutable) */ __webpack_exports__["c"] = deleteTask;
 /* harmony export (immutable) */ __webpack_exports__["d"] = editTaskTitle;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__ = __webpack_require__(144);
 
 
 
@@ -2663,7 +2613,7 @@ function moveDownTask(currentIndex, id) {
 
 function changeTaskStatus(id) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('api/change_task_status', JSON.stringify({ id: id })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('PUT', 'api/change_task_status', JSON.stringify({ id: id })).then(function (success) {
             dispatch(changeTaskStatusSuccess(id));
         }, function (error) {
             dispatch(changeTaskStatusError(error.message));
@@ -2673,7 +2623,7 @@ function changeTaskStatus(id) {
 
 function addTask(name, projectId, priority) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/add_task', JSON.stringify({ name: name, project_id: projectId, priority: priority })).then(function (addedTask) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('POST', '/api/add_task', JSON.stringify({ name: name, project_id: projectId, priority: priority })).then(function (addedTask) {
             dispatch(addTaskSucess(addedTask));
         }, function (error) {
             dispatch(addTaskError(error.message));
@@ -2683,7 +2633,7 @@ function addTask(name, projectId, priority) {
 
 function deleteTask(targetId) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/delete_task', JSON.stringify({ id: targetId })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('DELETE', '/api/delete_task', JSON.stringify({ id: targetId })).then(function (success) {
             dispatch(deleteTaskSuccess(targetId));
         }, function (error) {
             dispatch(deleteTaskError(error.message));
@@ -2693,7 +2643,7 @@ function deleteTask(targetId) {
 
 function editTaskTitle(targetId, newName) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_postDataFunction__["a" /* default */])('/api/edit_task_title', JSON.stringify({ id: targetId, newName: newName })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('PUT', '/api/edit_task_title', JSON.stringify({ id: targetId, newName: newName })).then(function (success) {
             dispatch(editTaskTitleSuccess(targetId, newName));
         }, function (error) {
             dispatch(editTaskTitleError(error.message));
@@ -53260,12 +53210,6 @@ var Header = function (_Component) {
     _createClass(Header, [{
         key: 'handleLogout',
         value: function handleLogout() {
-<<<<<<< HEAD
-
-            //перенести в экшн , обновить состояние isAuth
-            console.log(' DELETEING TOKEN ');
-=======
->>>>>>> css
             localStorage.removeItem('token');
             this.props.logout();
         }
@@ -53720,7 +53664,7 @@ var ProjectTitle = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_task__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AddTaskForm__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_data_debounce__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_requests_postDataFunction__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_requests_requestPromiseFunc__ = __webpack_require__(144);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53768,7 +53712,7 @@ var ProjectTasksList = function (_Component) {
                 return { id: taskId, priority: taskIndex };
             });
 
-            Object(__WEBPACK_IMPORTED_MODULE_7__helpers_requests_postDataFunction__["a" /* default */])('api/update_tasks_list', JSON.stringify(taskPriority)).then(function (ok) {
+            Object(__WEBPACK_IMPORTED_MODULE_7__helpers_requests_requestPromiseFunc__["a" /* default */])('PUT', 'api/update_tasks_list', JSON.stringify(taskPriority)).then(function (ok) {
                 console.log('ok');
             }, function (notOk) {
                 console.log('woops');
@@ -54335,7 +54279,7 @@ function debounce(func, wait, immediate) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = fetch_users_todo;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_getDataFunction__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__ = __webpack_require__(144);
 
 
 
@@ -54343,7 +54287,7 @@ function debounce(func, wait, immediate) {
 function fetch_users_todo() {
     return function (dispatch) {
         dispatch(fetchTodoRequest());
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_getDataFunction__["a" /* default */])('/api/get_users_todo_list').then(function (response) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('GET', '/api/get_users_todo_list').then(function (response) {
             console.log(response);
             dispatch(fetchTodoSuccess(response));
         }, function (error) {
@@ -54373,47 +54317,7 @@ function fetchTodoError(errorMessage) {
 }
 
 /***/ }),
-/* 124 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = get;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setHeaders__ = __webpack_require__(33);
-
-
-function get(url) {
-  // Возвращаем новое Обещание.
-  return new Promise(function (resolve, reject) {
-    // Делаем привычные XHR вещи
-    var req = new XMLHttpRequest();
-
-    req.open('GET', url);
-    Object(__WEBPACK_IMPORTED_MODULE_0__setHeaders__["a" /* default */])(req);
-
-    req.onload = function () {
-      // Этот кусок вызовется даже при 404’ой ошибке
-      // поэтому проверяем статусы ответа
-      if (req.status == 200) {
-        // Завершаем Обещание с текстом ответа
-        resolve(JSON.parse(req.response));
-      } else {
-        // Обламываемся, и передаём статус ошибки
-        // что бы облегчить отладку и поддержку
-        reject(Error(req.statusText));
-      }
-    };
-
-    // отлавливаем ошибки сети
-    req.onerror = function () {
-      reject(Error("Network Error"));
-    };
-
-    // Делаем запрос
-    req.send();
-  });
-}
-
-/***/ }),
+/* 124 */,
 /* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -54709,7 +54613,8 @@ function tasks() {
 function moveArrEllementUpOrInTail(arr, index) {
     var temp = void 0;
     if (index === 0) {
-        switchHeadToTailArr(arr);
+        arr.push(arr[index]);
+        arr.shift();
     } else {
         temp = arr[index - 1];
         arr[index - 1] = arr[index];
@@ -54720,18 +54625,13 @@ function moveArrEllementUpOrInTail(arr, index) {
 function moveArrEllementDownOrInHead(arr, index) {
     var temp = void 0;
     if (index === arr.length - 1) {
-        switchHeadToTailArr(arr);
+        arr.unshift(arr[index]);
+        arr.pop();
     } else {
         temp = arr[index + 1];
         arr[index + 1] = arr[index];
         arr[index] = temp;
     }
-}
-
-function switchHeadToTailArr(arr) {
-    var temp = arr[arr.length - 1];
-    arr[arr.length - 1] = arr[0];
-    arr[0] = temp;
 }
 
 /***/ }),
@@ -54834,6 +54734,73 @@ exports['default'] = thunk;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = request;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setHeaders__ = __webpack_require__(33);
+
+
+// export default function post( url , requestuestBody) {
+
+//   return new Promise(function(resolve, reject) {
+//     var req = new XMLHttpRequest();
+
+//     req.open("POST" , url );
+//     setHeaders(req)
+
+//     req.onload =  function() {
+
+//       if (req.status < 400)
+//         resolve(JSON.parse(req.response));
+//       else
+//         reject(new Error("Request failed: " + req.statusText +' '+req.status ));
+//     };
+
+//     req.onerror  =  function() {
+//      reject(new Error("Network error"));
+//     };
+
+//     req.send(requestuestBody);
+
+//   });
+// }
+
+function request(requestType, url) {
+  var requestuestBody = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+
+  return new Promise(function (resolve, reject) {
+    var req = new XMLHttpRequest();
+
+    req.open(requestType, url);
+    Object(__WEBPACK_IMPORTED_MODULE_0__setHeaders__["a" /* default */])(req);
+
+    req.onload = function () {
+
+      if (req.status < 400) resolve(JSON.parse(req.response));else reject(new Error("Request failed: " + req.statusText + ' ' + req.status));
+    };
+
+    req.onerror = function () {
+      reject(new Error("Network error"));
+    };
+
+    requestuestBody ? req.send(requestuestBody) : req.send(requestuestBody);
+  });
+}
 
 /***/ })
 /******/ ]);

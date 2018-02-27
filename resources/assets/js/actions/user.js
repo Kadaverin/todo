@@ -7,14 +7,14 @@ import {
         REGISTER_SUCCESS ,
         AUTO_LOGIN , LOGOUT, }  from '../constants/ActionTypes';
 
-import post from '../helpers/requests/postDataFunction';
+import request from '../helpers/requests/requestPromiseFunc';
 
 
 export  function login(userInfo){
     return dispatch => {
 
             dispatch (loginRequest())
-            return  post('/api/login' ,JSON.stringify(userInfo)).then (
+            return  request('POST','/api/login' ,JSON.stringify(userInfo)).then (
 
                         responseData => {
                             localStorage.setItem("token" , responseData.token)
@@ -33,7 +33,7 @@ export  function register(userInfo){
    return dispatch => {
 
             dispatch (registerRequest())
-            return  post('/api/register' , JSON.stringify(userInfo)).then (
+            return  request('POST','/api/register' , JSON.stringify(userInfo)).then (
 
                         responseData => {
                             dispatch (registered());

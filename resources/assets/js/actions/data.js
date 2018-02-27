@@ -2,12 +2,12 @@ import {FETCH_USERS_TODO_SUCCESS,
         FETCH_USERS_TODO_REQUEST,
         FETCH_USERS_TODO_ERROR} from '../constants/ActionTypes';
 
-import get from '../helpers/requests/getDataFunction';
+import request from '../helpers/requests/requestPromiseFunc';
 
 export function fetch_users_todo(){
     return dispatch =>{
         dispatch(fetchTodoRequest())
-        return get('/api/get_users_todo_list').then(
+        return request('GET','/api/get_users_todo_list').then(
 
             response =>{
                 console.log (response);

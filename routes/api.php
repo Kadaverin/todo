@@ -23,13 +23,13 @@ Route::group(['middleware' => 'JWT'] , function() {
 
     Route::get('get_users_todo_list', 'DataController@getTodo');    
     Route::post('add_project' , 'ProjectController@addProject');
-    Route::post('delete_project' , 'ProjectController@deleteProject');
-    Route::post('edit_project_title' , 'ProjectController@editProjectTitle');
-    Route::post('edit_task_title' , 'TasksController@editTaskTitle');
-    Route::post('delete_task' , 'TasksController@deleteTask');
+    Route::delete('delete_project' , 'ProjectController@deleteProject');
+    Route::put('edit_project_title' , 'ProjectController@editProjectTitle');
+    Route::put('edit_task_title' , 'TasksController@editTaskTitle');
+    Route::delete('delete_task' , 'TasksController@deleteTask');
     Route::post('add_task' , 'TasksController@addTask');
-    Route::post('update_tasks_list','TasksController@updateTasksList');
-    Route::post('change_task_status' ,'TasksController@changeTaskStatus' );
+    Route::put('update_tasks_list','TasksController@updateTasksList');
+    Route::put('change_task_status' ,'TasksController@changeTaskStatus' );
 });
 
 

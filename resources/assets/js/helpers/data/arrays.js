@@ -3,7 +3,8 @@
 export  function moveArrEllementUpOrInTail(arr , index){
     let temp;
     if (index === 0) {
-             switchHeadToTailArr(arr)
+            arr.push(arr[index]);
+            arr.shift();
     }else {
         temp = arr[ index - 1 ] 
         arr[ index -1 ] = arr[ index ] 
@@ -14,16 +15,12 @@ export  function moveArrEllementUpOrInTail(arr , index){
 export  function moveArrEllementDownOrInHead(arr , index){
     let temp;
     if (index === arr.length - 1) {
-            switchHeadToTailArr(arr)
+          arr.unshift(arr[index]);
+          arr.pop();
+
     }else {
         temp = arr[ index + 1 ] 
         arr[ index + 1 ] = arr[ index ] 
         arr[ index ]  = temp;
     }
 }
-
-function switchHeadToTailArr(arr){
-        let temp = arr[ arr.length - 1 ];
-        arr[ arr.length - 1 ] = arr[0];
-        arr[0] = temp;
-}   

@@ -12,7 +12,7 @@ import { ADD_TASK,
          CHANGE_TASK_STATUS_SUCCESS,
          CHANGE_TASK_STATUS_ERROR,  } from '../constants/ActionTypes';
 
-import post from '../helpers/requests/postDataFunction';
+import request from '../helpers/requests/requestPromiseFunc';
 
 
 
@@ -32,7 +32,7 @@ export function moveDownTask(currentIndex , id){
 
 export function changeTaskStatus(id){
     return dispatch => {
-        return post('api/change_task_status' , JSON.stringify({id : id})).then(
+        return request('PUT','api/change_task_status' , JSON.stringify({id : id})).then(
 
             success => {
                 dispatch(changeTaskStatusSuccess(id));
@@ -46,7 +46,7 @@ export function changeTaskStatus(id){
 
 export function addTask(name , projectId , priority){
     return dispatch => {
-        return post('/api/add_task' , JSON.stringify({name : name , project_id : projectId , priority : priority})).then(
+        return request('POST','/api/add_task' , JSON.stringify({name : name , project_id : projectId , priority : priority})).then(
 
                     addedTask => {
                         dispatch(addTaskSucess(addedTask))
@@ -60,7 +60,7 @@ export function addTask(name , projectId , priority){
 
 export function deleteTask(targetId){
     return dispatch => {
-        return post('/api/delete_task' ,JSON.stringify({id : targetId})).then(
+        return request('DELETE','/api/delete_task' ,JSON.stringify({id : targetId})).then(
 
             success => {
                 dispatch(deleteTaskSuccess(targetId));
@@ -74,7 +74,7 @@ export function deleteTask(targetId){
 
 export function editTaskTitle(targetId , newName){
     return dispatch => {
-        return post('/api/edit_task_title' , JSON.stringify( {id : targetId , newName : newName} )).then(
+        return request('PUT','/api/edit_task_title' , JSON.stringify( {id : targetId , newName : newName} )).then(
 
             success => {
                 dispatch(editTaskTitleSuccess(targetId , newName));

@@ -7,13 +7,13 @@ import { ADD_PROJECT,
          ADD_PROJECT_SUCCESS,
          ADD_PROJECT_ERROR,   } from '../constants/ActionTypes';
 
-import post from '../helpers/requests/postDataFunction';
+import request from '../helpers/requests/requestPromiseFunc';
 
 export function addProject(projectName){
     return dispatch => {
 
 //        dispatch( addProjectRequest());
-        return post('/api/add_project' , JSON.stringify( {name : projectName})).then(
+        return request('POST','/api/add_project' , JSON.stringify( {name : projectName})).then(
 
                     addedProject => {
                         dispatch(addProjectSucess(addedProject))
@@ -27,7 +27,7 @@ export function addProject(projectName){
 
 export function deleteProject(targetId){
     return dispatch => {
-        return post('/api/delete_project' ,JSON.stringify({id : targetId})).then(
+        return request('DELETE','/api/delete_project' ,JSON.stringify({id : targetId})).then(
 
             success => {
                 dispatch(deleteProjectSuccess(targetId));
@@ -41,7 +41,7 @@ export function deleteProject(targetId){
 
 export function editProjectTitle(targetId , newName){
     return dispatch => {
-        return post('/api/edit_project_title' , JSON.stringify( {id : targetId , newName : newName} )).then(
+        return request('PUT','/api/edit_project_title' , JSON.stringify( {id : targetId , newName : newName} )).then(
 
             success => {
                 dispatch(editProjectTitleSuccess(targetId , newName));

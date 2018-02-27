@@ -5,7 +5,7 @@ import	{	bindActionCreators	}	from	'redux';
 import {deleteTask , editTaskTitle , moveUpTask , moveDownTask , addTask, changeTaskStatus} from '../actions/task';
 import AddTaskForm from './AddTaskForm';
 import debounce from '../helpers/data/debounce';
-import post from '../helpers/requests/postDataFunction';
+import request from '../helpers/requests/requestPromiseFunc';
 
 
 export class ProjectTasksList extends Component {
@@ -31,7 +31,7 @@ export class ProjectTasksList extends Component {
                return { id : taskId , priority : taskIndex };
             })
                 
-                post('api/update_tasks_list' , JSON.stringify(taskPriority)).then(
+                request('PUT','api/update_tasks_list' , JSON.stringify(taskPriority)).then(
                     ok =>{
                         console.log('ok')
                     },
