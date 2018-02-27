@@ -101,7 +101,6 @@ export class ProjectTasksList extends Component {
                  </ul>
                 : 
                 <div>
-                    Добавьте задачи к проекту
                 </div>
                 }
             </div>
