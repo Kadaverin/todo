@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-// Конектить отдельно от ToDoPage ?
 export default class ProjectEditIcons extends Component {
 
     constructor(){

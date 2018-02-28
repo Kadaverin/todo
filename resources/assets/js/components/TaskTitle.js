@@ -26,25 +26,16 @@ constructor(props){
 
     handleClickOutside(event) {
         if (( !this.activeTask || !this.activeTask.contains(event.target))) {
-         //   console.log('OUTSIDE ' + this.props.task.name);
             this.props.makeTaskNotActive();
         }
-       //  document.body.removeEventListener('keydown',this.cancelScrollingByArrowKeys)
     }
 
     handleClickOnTaskTitle(){
         this.activeTask.focus(); 
         this.props.makeTaskActive(); 
-       // document.body.addEventListener('keydown' ,this.cancelScrollingByArrowKeys )
     }
 
-    // cancelScrollingByArrowKeys(e){
-    //         if (e.keyCode == 40 || e.keyCode == 38) // запретить скролл
-    //         e.preventDefault();
-    //         return false
-    // }
     handleKeyDown(e){
-      //  console.log('KEYDOWN  ' + e.keyCode + ' IN ' +  this.props.task.name);
         if (e.keyCode === 38) { 
             e.preventDefault()
             e.stopPropagation();
@@ -52,7 +43,7 @@ constructor(props){
 
             this.props.moveUpTask( this.props.indexInTasksIdsArray , this.props.task.id); 
             this.props.trackChangesOfTasksOrder();
-            this.props.up();
+            this.props. handleChangeTasOrderForSercerSide();
         }
 
         if (e.keyCode === 40) { 
@@ -62,23 +53,20 @@ constructor(props){
 
             this.props.moveDownTask( this.props.indexInTasksIdsArray , this.props.task.id); 
             this.props.trackChangesOfTasksOrder();
-            this.props.up();
+            this.props. handleChangeTasOrderForSercerSide();
         }
     }
 
     render(){
-     //   console.log('RENDER ' + this.props.task.name);
         return (
             <div className = 'task-title-with-edit-icons'>
-                {/*ПОПРОВИТЬ ПЕРЕМЕЩЕНИЕ ТАСОК ЧЕРЕЗ КРАЙ МАССИВА !!!ТУТ ЧЕКБОКС КОТОРЫЙ БУДЕТ ОТОБРАЖАТЬ СТАТУС ТАСКИ . Если сделана - то галочка*/}
                 <div className = 'task-title'
                      tabIndex="-1"
                      ref = { (taskTitleDiv) => this.activeTask = taskTitleDiv } 
                      onClick = { this.handleClickOnTaskTitle }
                      onKeyDown = { this.handleKeyDown }       
-                >
+            >
                    { this.props.task.name }   
-                   {/*<span className = 'glyphicon glyphicon-sort' id = 'focused-task-sort-icon' > </span>  */}
                 </div>    
                 
                 <TaskEditIcons 

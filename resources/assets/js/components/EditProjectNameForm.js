@@ -1,19 +1,20 @@
 import React, {Component} from 'react'; 
 import {findDOMNode} from 'react-dom';
 
-export default class EditTitleForm extends Component {
+export default class EditProjectNameForm extends Component {
 
         constructor(props){
         super(props);
         this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
         this.cancelEditing = this.cancelEditing.bind(this);
+        this.handleEnterDown = this.handleEnterDown.bind(this);
     }
 
     componentDidMount() {
         this.newProjectTitleInput.focus();
     }
 
-    handleUpdateTitle(e){
+    handleUpdateTitle(){
         const newProjectTitle = this.newProjectTitleInput.value.trim();
 
         if(!newProjectTitle || newProjectTitle === this.props.project.name) {
@@ -28,6 +29,10 @@ export default class EditTitleForm extends Component {
         this.props.stopEditing();
     }
 
+    handleEnterDown(e){ 
+        if (e.keyCode == 13) this.handleUpdateTitle();
+    }
+
     render(){
 
         return(
@@ -35,8 +40,9 @@ export default class EditTitleForm extends Component {
                 <input 
                     defaultValue={this.props.project.name}
                     ref = {(newProjectTitle) => {this.newProjectTitleInput = newProjectTitle}}
+                    onKeyDown = {this.handleEnterDown}
                 /> 
-                <div clsssName = 'ok-cancel-toolbox'>
+                <div className = 'ok-cancel-toolbox'>
                  <span className = 'glyphicon glyphicon-ok' onClick = { this.handleUpdateTitle } > </span>
                  <span className = 'glyphicon glyphicon-remove' onClick = { this.cancelEditing } > </span>
                 </div>

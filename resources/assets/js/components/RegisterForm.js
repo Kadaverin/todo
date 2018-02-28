@@ -12,7 +12,6 @@ export default class RegisterForm extends Component {
       findDOMNode(this.refs.login).focus();
   }
   handleRegister(e) {
-    //preventDefault prevents page reload   
     e.preventDefault();
     const login = findDOMNode(this.refs.login).value.trim();
     const password = findDOMNode(this.refs.password).value.trim();

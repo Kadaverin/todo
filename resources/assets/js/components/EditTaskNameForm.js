@@ -6,6 +6,7 @@ export default class EditTaskNameForm extends Component {
         constructor(props){
         super(props);
         this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
+        this.handleEnterDown = this.handleEnterDown.bind(this);
         this.cancelEditing = this.cancelEditing.bind(this);
     }
 
@@ -13,8 +14,7 @@ export default class EditTaskNameForm extends Component {
         this.newTaskTitleInput.focus();
     }
 
-    handleUpdateTitle(e){
-         e.preventDefault();
+    handleUpdateTitle(){
         const newTaskTitle = this.newTaskTitleInput.value.trim();
 
         if(!newTaskTitle || newTaskTitle === this.props.task.title) {
@@ -29,6 +29,10 @@ export default class EditTaskNameForm extends Component {
         this.props.stopEditing();
     }
 
+    handleEnterDown(e){ 
+        if (e.keyCode == 13) this.handleUpdateTitle();
+    }
+
     render(){
 
         return(
@@ -36,6 +40,7 @@ export default class EditTaskNameForm extends Component {
                 <input 
                     defaultValue={this.props.task.name}
                     ref = { (newTaskTitle) => this.newTaskTitleInput = newTaskTitle }
+                    onKeyDown = {this.handleEnterDown}
                 />
                <div className = 'ok-cancel-toolbox'>
                  <span className = 'glyphicon glyphicon-ok' onClick = { this.handleUpdateTitle } > </span>

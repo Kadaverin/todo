@@ -1,8 +1,11 @@
 import React , {Component} from 'react';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
+import { connect } from 'react-redux';
+import	{ bindActionCreators }	from	'redux'
+import {register , login } from '../actions/user';
 
-export default class AuthContainer extends Component{
+export  class AuthPage extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -34,13 +37,29 @@ export default class AuthContainer extends Component{
                     {
                         this.state.userWantsToLogin 
                         ?
-                            <LoginForm handleLoginFunc = {this.props.handleLogin} />            
+                            <LoginForm handleLoginFunc = {this.props.loginFunc} />            
                         :
-                            <RegisterForm handleRegisterFunc = {this.props.handleRegister} /> 
+                            <RegisterForm handleRegisterFunc = {this.props.registerFunc} /> 
                     }
                 </center>
             </div>
         )
     }
 }
+
+function	mapStateToProps(state)	{
+		return	{
+				user:	    state.user,
+		}
+}
+
+function	mapDispatchToProps(dispatch)	{
+		return	{
+				registerFunc:	bindActionCreators(register , dispatch),
+                loginFunc:	    bindActionCreators(login , dispatch) ,        
+		}
+}
+
+export default connect ( mapStateToProps, mapDispatchToProps)(AuthPage)
+
 

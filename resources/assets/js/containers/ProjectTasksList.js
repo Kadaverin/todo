@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import SimpleProjectTask from '../containers/SimpleProjectTask';
 import { connect } from 'react-redux';
-import	{	bindActionCreators	}	from	'redux';
-import {deleteTask , editTaskTitle , moveUpTask , moveDownTask , addTask, changeTaskStatus} from '../actions/task';
-import AddTaskForm from './AddTaskForm';
+import	{ bindActionCreators }	from	'redux';
+import SimpleProjectTask from './SimpleProjectTask';
+import {addTask , updateTasksPriority} from '../actions/task';
+import AddTaskForm from '../components/AddTaskForm';
 import debounce from '../helpers/data/debounce';
 import request from '../helpers/requests/requestPromiseFunc';
 
@@ -14,56 +14,28 @@ export class ProjectTasksList extends Component {
         super(props);
         this.tasksOrderIsChanged = false;
         this.trackChangesOfTasksOrder = this.trackChangesOfTasksOrder.bind(this);
-        this.up = this.up.bind(this);
-
-         this.f = debounce( this.f , 500)
+        this.handleChangeTasOrderForSercerSide = this.handleChangeTasOrderForSercerSide.bind(this);
+        this.sendTaskOrderChengeToSercer = debounce( this.sendTaskOrderChengeToSercer , 500)
     }
 
-    // handleMoveTask(currentTaskPriority , targetTaskId){
-        
-
-    // }
-
-     f()  {
+     sendTaskOrderChengeToSercer()  {
             let  tasksIds  = this.props.projectsTasksIds[this.props.project.id]
 
-            let taskPriority = tasksIds.map( (taskId , taskIndex) =>{
+            let newTaskPriority = tasksIds.map( (taskId , taskIndex) =>{
                return { id : taskId , priority : taskIndex };
             })
-                
-                request('PUT','api/update_tasks_list' , JSON.stringify(taskPriority)).then(
-                    ok =>{
-                        console.log('ok')
-                    },
-                    notOk =>{
-                        console.log('woops')
-                    }
-                )
+                this.props.updateTasksPriority(newTaskPriority);
              } 
              
     trackChangesOfTasksOrder(){
         this.tasksOrderIsChanged = true;
-        console.log("TRACKING " + this.tasksOrderIsChanged)
     }
 
-    up(){
-
-        
-
-        if (this.tasksOrderIsChanged)
-          { 
-              console.log('UP ')
-
-             this.f();
-        }
-    }
-  
- // updateTasksOrderOnDatabase()
-
-    
+    handleChangeTasOrderForSercerSide(){
+        if (this.tasksOrderIsChanged){ this.sendTaskOrderChengeToSercer() ;}
+    } 
 
     render(){
-        console.log('RENDER');
         let  tasksIds  = this.props.projectsTasksIds[this.props.project.id];
 
         return(
@@ -82,18 +54,11 @@ export class ProjectTasksList extends Component {
                         return (
                             <li key = {task.id}>   
                                 <SimpleProjectTask  
+                                    task = {task} 
                                     indexInTasksIdsArray = {index}
-                                    moveUpTask = {this.props.moveUpTask} 
-                                    moveDownTask = {this.props.moveDownTask} 
-                                    deleteTask = {this.props.deleteTask}       
-                                    editTaskTitle = {this.props.editTaskTitle}
-                                    replaceTask = {this.props.replaceTask} 
                                     allTasksIdsOfCurrentProject = {tasksIds}
-                                    changeTaskStatus = {this.props.changeTaskStatus}
                                     trackChangesOfTasksOrder = {this.trackChangesOfTasksOrder}
-                                    task = {task}
-
-                                    up = {this.up}
+                                    handleChangeTasOrderForSercerSide = {this.handleChangeTasOrderForSercerSide}
                                 />
                             </li>
                         )
@@ -117,13 +82,8 @@ function	mapStateToProps(state)	{
 
 function	mapDispatchToProps(dispatch)	{
 		return	{  
-                deleteTask :    bindActionCreators( deleteTask , dispatch ),
-                editTaskTitle : bindActionCreators( editTaskTitle , dispatch ),
-                moveUpTask : bindActionCreators( moveUpTask , dispatch ),
-                moveDownTask : bindActionCreators( moveDownTask , dispatch ),
-                changeTaskStatus : bindActionCreators( changeTaskStatus , dispatch ),
-
                 addTask :       bindActionCreators(addTask , dispatch),
+                updateTasksPriority : bindActionCreators(updateTasksPriority , dispatch),
 		}
 }
 

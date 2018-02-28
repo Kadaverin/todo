@@ -8,7 +8,7 @@ export default  class LoginForm extends Component {
         this.handleLogin = this.handleLogin.bind(this);
     }
 
-    componentDidMount() { //ставим фокус в input
+    componentDidMount() { 
       findDOMNode(this.refs.login).focus();
    }
 

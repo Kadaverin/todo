@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 
@@ -42,7 +43,7 @@ class User extends Authenticatable
                 ->first();
                   
                 
-               if (!isset ($user) || $password !== encrypt($user->password) ) return;
+                if (!isset ($user) || !Hash::check($password, $user->password) ) return;
                 
              return $user->id;
     }

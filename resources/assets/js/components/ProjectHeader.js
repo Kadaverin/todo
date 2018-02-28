@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 import ProjectEditIcons from './ProjectEditIcons';
 import AddTaskForm from './AddTaskForm';
-import EditTitleForm from './EditTitleForm';
+import EditProjectNameForm from './EditProjectNameForm';
 import ProjectTitle from './ProjectTitle';
 
 export default class ProjectHeader extends Component {
@@ -32,7 +32,7 @@ export default class ProjectHeader extends Component {
                     startEditing = {this.startStopEditingSwitcher}
                   />
                 : 
-                 <EditTitleForm 
+                 <EditProjectNameForm 
                     project = {this.props.project}
                     handleEditProjectTitle = {this.props.editProjectTitle}
                     stopEditing = {this.startStopEditingSwitcher}

@@ -1,10 +1,12 @@
  import React , {Component} from 'react';
+ import { connect } from 'react-redux';
+ import	{ bindActionCreators }	from	'redux';
  import TaskTitle from '../components/TaskTitle';
  import EditTaskNameForm from '../components/EditTaskNameForm';
  import TaskIsDoneCheckBox from '../components/TaskIsDoneCheckBox';
+ import {deleteTask , editTaskTitle , moveUpTask , moveDownTask , changeTaskStatus} from '../actions/task';
  
-
- export default class SimpleProjectTask extends Component {
+ export  class SimpleProjectTask extends Component {
 
      constructor(props){
         super(props);
@@ -20,15 +22,6 @@
 
     makeTaskActive(){
         if (!this.state.taskIsActive){
-
-            // let currentIndex; 
-            // this.props.allTasksIdsOfCurrentProject.forEach((taskId , index) =>{
-            //         if (taskId === this.props.task.id ) {
-            //             currentIndex = index; 
-            //         }
-            //      }
-            // )
-            //this.setState( { tasksIsActive : true , indexInProjectTasksArray : currentIndex });
             this.setState( { taskIsActive : true })
         }
     }
@@ -57,6 +50,7 @@
                !this.state.taskNameIsEditing 
                ?
                  <TaskTitle
+                    handleChangeTasOrderForSercerSide = {this.props.handleChangeTasOrderForSercerSide}  
                     trackChangesOfTasksOrder = {this.props.trackChangesOfTasksOrder}
                     indexInTasksIdsArray = {this.props.indexInTasksIdsArray}
                     taskIsActive = {this.state.taskIsActive}
@@ -67,8 +61,7 @@
                     moveDownTask = {this.props.moveDownTask}                    
                     deleteTask = {this.props.deleteTask} 
                     task = {this.props.task}  
-
-                    up = {this.props.up}  
+                   
                   />
                :
                  <EditTaskNameForm
@@ -83,5 +76,15 @@
     }
 
  }
- 
- 
+
+function	mapDispatchToProps(dispatch)	{
+		return	{  
+                deleteTask :    bindActionCreators( deleteTask , dispatch ),
+                editTaskTitle : bindActionCreators( editTaskTitle , dispatch ),
+                moveUpTask : bindActionCreators( moveUpTask , dispatch ),
+                moveDownTask : bindActionCreators( moveDownTask , dispatch ),
+                changeTaskStatus : bindActionCreators( changeTaskStatus , dispatch ),
+		}
+}
+
+export default connect ( null, mapDispatchToProps)(SimpleProjectTask)

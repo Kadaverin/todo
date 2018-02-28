@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import ProjectHeader from '../components/ProjectHeader';
-import ProjectTasksList from '../components/ProjectTasksList';
+import ProjectTasksList from './ProjectTasksList';
 import { connect } from 'react-redux';
-import	{	bindActionCreators	}	from	'redux';
+import	{bindActionCreators}	from	'redux';
 import {fetch_users_todo} from '../actions/data';
 import {addTask} from '../actions/task';
 import {deleteProject , editProjectTitle} from '../actions/project';
@@ -59,18 +59,3 @@ function	mapDispatchToProps(dispatch)	{
 }
 
 export default connect ( mapStateToProps, mapDispatchToProps)(ToDoList)
-
-
-
-
-
-
-
-                {/*<ProjectTasksList 
-                        project = {project}
-                        projectTasks = { projectsTasksIds[ project.id ].map( taskId => tasksById[ taskId ] ) }
-                        allTasksIdArray = { projectsTasksIds[ project.id ] }
-                        deleteTask = {this.props.deleteTask}       
-                        updateTask = {this.props.updateTask}
-                        replaceTask = {this.props.replaceTask}                      
-                    />   */}

@@ -32,7 +32,7 @@ export function moveDownTask(currentIndex , id){
 
 export function changeTaskStatus(id){
     return dispatch => {
-        return request('PUT','api/change_task_status' , JSON.stringify({id : id})).then(
+        return request('PUT','/api/change_task_status' , JSON.stringify({id : id})).then(
 
             success => {
                 dispatch(changeTaskStatusSuccess(id));
@@ -83,6 +83,19 @@ export function editTaskTitle(targetId , newName){
                 dispatch(editTaskTitleError(error.message));
             }
         )
+    }
+}
+
+export function updateTasksPriority(taskPriority){
+    return dispatch=>{
+        return  request('PUT','/api/update_tasks_list' , JSON.stringify(taskPriority)).then(
+                    ok =>{
+                        console.log('ok')
+                    },
+                    notOk =>{
+                        console.log('woops')
+                    }
+                )
     }
 }
 

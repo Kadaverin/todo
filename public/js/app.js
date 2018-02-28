@@ -2487,8 +2487,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-// Конектить отдельно от ToDoPage ?
-
 var ProjectEditIcons = function (_Component) {
     _inherits(ProjectEditIcons, _Component);
 
@@ -2560,7 +2558,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-// Коннектить отдельно ???
 
 var AddTaskForm = function (_Component) {
     _inherits(AddTaskForm, _Component);
@@ -2630,6 +2627,7 @@ var AddTaskForm = function (_Component) {
 /* harmony export (immutable) */ __webpack_exports__["a"] = addTask;
 /* harmony export (immutable) */ __webpack_exports__["c"] = deleteTask;
 /* harmony export (immutable) */ __webpack_exports__["d"] = editTaskTitle;
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateTasksPriority;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_ActionTypes__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__ = __webpack_require__(7);
 
@@ -2652,7 +2650,7 @@ function moveDownTask(currentIndex, id) {
 
 function changeTaskStatus(id) {
     return function (dispatch) {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('PUT', 'api/change_task_status', JSON.stringify({ id: id })).then(function (success) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('PUT', '/api/change_task_status', JSON.stringify({ id: id })).then(function (success) {
             dispatch(changeTaskStatusSuccess(id));
         }, function (error) {
             dispatch(changeTaskStatusError(error.message));
@@ -2686,6 +2684,16 @@ function editTaskTitle(targetId, newName) {
             dispatch(editTaskTitleSuccess(targetId, newName));
         }, function (error) {
             dispatch(editTaskTitleError(error.message));
+        });
+    };
+}
+
+function updateTasksPriority(taskPriority) {
+    return function (dispatch) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_requests_requestPromiseFunc__["a" /* default */])('PUT', '/api/update_tasks_list', JSON.stringify(taskPriority)).then(function (ok) {
+            console.log('ok');
+        }, function (notOk) {
+            console.log('woops');
         });
     };
 }
@@ -50965,7 +50973,7 @@ module.exports = camelize;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AuthPage__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ToDoPage__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_ToDoPage__ = __webpack_require__(143);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_redux__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_user__ = __webpack_require__(33);
@@ -51008,20 +51016,13 @@ var Main = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'main' },
-                !isAuthorized ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AuthPage__["a" /* default */], {
-                    handleLogin: this.props.loginFunc,
-                    handleRegister: this.props.registerFunc,
-                    autoLoginFunc: this.props.autoLogin
-                }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ToDoPage__["a" /* default */], null)
+                !isAuthorized ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AuthPage__["a" /* default */], null) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_ToDoPage__["a" /* default */], null)
             );
         }
     }]);
 
     return Main;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-// Законектить AuthPage отдельно ! 
-
 
 function mapStateToProps(state) {
     return {
@@ -51031,8 +51032,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        registerFunc: Object(__WEBPACK_IMPORTED_MODULE_5_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_6__actions_user__["d" /* register */], dispatch),
-        loginFunc: Object(__WEBPACK_IMPORTED_MODULE_5_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_6__actions_user__["b" /* login */], dispatch),
         autoLogin: Object(__WEBPACK_IMPORTED_MODULE_5_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_6__actions_user__["a" /* autoLogin */], dispatch)
     };
 }
@@ -51044,10 +51043,14 @@ function mapDispatchToProps(dispatch) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export AuthPage */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_RegisterForm__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_LoginForm__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_user__ = __webpack_require__(33);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51060,13 +51063,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var AuthContainer = function (_Component) {
-    _inherits(AuthContainer, _Component);
 
-    function AuthContainer(props) {
-        _classCallCheck(this, AuthContainer);
 
-        var _this = _possibleConstructorReturn(this, (AuthContainer.__proto__ || Object.getPrototypeOf(AuthContainer)).call(this, props));
+
+var AuthPage = function (_Component) {
+    _inherits(AuthPage, _Component);
+
+    function AuthPage(props) {
+        _classCallCheck(this, AuthPage);
+
+        var _this = _possibleConstructorReturn(this, (AuthPage.__proto__ || Object.getPrototypeOf(AuthPage)).call(this, props));
 
         _this.state = {
             userWantsToLogin: true
@@ -51076,7 +51082,7 @@ var AuthContainer = function (_Component) {
         return _this;
     }
 
-    _createClass(AuthContainer, [{
+    _createClass(AuthPage, [{
         key: 'changeFormToLoginForm',
         value: function changeFormToLoginForm(e) {
             e.preventDefault();
@@ -51111,16 +51117,29 @@ var AuthContainer = function (_Component) {
                             ' Sign up'
                         )
                     ),
-                    this.state.userWantsToLogin ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_LoginForm__["a" /* default */], { handleLoginFunc: this.props.handleLogin }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_RegisterForm__["a" /* default */], { handleRegisterFunc: this.props.handleRegister })
+                    this.state.userWantsToLogin ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_LoginForm__["a" /* default */], { handleLoginFunc: this.props.loginFunc }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_RegisterForm__["a" /* default */], { handleRegisterFunc: this.props.registerFunc })
                 )
             );
         }
     }]);
 
-    return AuthContainer;
+    return AuthPage;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (AuthContainer);
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        registerFunc: Object(__WEBPACK_IMPORTED_MODULE_4_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_5__actions_user__["d" /* register */], dispatch),
+        loginFunc: Object(__WEBPACK_IMPORTED_MODULE_4_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_5__actions_user__["b" /* login */], dispatch)
+    };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(AuthPage));
 
 /***/ }),
 /* 80 */
@@ -51162,7 +51181,6 @@ var RegisterForm = function (_Component) {
     }, {
         key: 'handleRegister',
         value: function handleRegister(e) {
-            //preventDefault prevents page reload   
             e.preventDefault();
             var login = Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["findDOMNode"])(this.refs.login).value.trim();
             var password = Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["findDOMNode"])(this.refs.password).value.trim();
@@ -51256,7 +51274,6 @@ var LoginForm = function (_Component) {
     _createClass(LoginForm, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            //ставим фокус в input
             Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["findDOMNode"])(this.refs.login).focus();
         }
     }, {
@@ -51320,77 +51337,7 @@ var LoginForm = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (LoginForm);
 
 /***/ }),
-/* 82 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Header__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ToDoList__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Footer__ = __webpack_require__(124);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var ToDoPage = function (_Component) {
-    _inherits(ToDoPage, _Component);
-
-    function ToDoPage() {
-        _classCallCheck(this, ToDoPage);
-
-        return _possibleConstructorReturn(this, (ToDoPage.__proto__ || Object.getPrototypeOf(ToDoPage)).apply(this, arguments));
-    }
-
-    _createClass(ToDoPage, [{
-        key: 'render',
-        value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'todo-main-page' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Header__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ToDoList__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Footer__["a" /* default */], null)
-            );
-        }
-    }]);
-
-    return ToDoPage;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-// Конектить отдельно Header и ToDoList ?  Хеадер - клопка логаута и форма для добавления новой тудушки
-// function	mapStateToProps(state)	{
-// 		return	{
-// 				projects:    state.projects,
-//                 tasks:      state.tasks    
-// 		}
-// }
-
-// function	mapDispatchToProps(dispatch)	{
-// 		return	{
-
-// 		}
-// }
-
-// export default connect ( mapStateToProps, mapDispatchToProps)(Main)
-
-
-/* harmony default export */ __webpack_exports__["a"] = (ToDoPage);
-
-/***/ }),
+/* 82 */,
 /* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -53382,7 +53329,7 @@ function setHeaders(req) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ProjectHeader__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_ProjectTasksList__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ProjectTasksList__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_data__ = __webpack_require__(123);
@@ -53436,7 +53383,7 @@ var ToDoList = function (_Component) {
                         editProjectTitle: _this2.props.editProjectTitle,
                         addTask: _this2.props.addTask
                     }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_ProjectTasksList__["a" /* default */], {
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ProjectTasksList__["a" /* default */], {
                         project: project
                     })
                 );
@@ -53476,15 +53423,6 @@ function mapDispatchToProps(dispatch) {
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(ToDoList));
 
-{/*<ProjectTasksList 
-           project = {project}
-           projectTasks = { projectsTasksIds[ project.id ].map( taskId => tasksById[ taskId ] ) }
-           allTasksIdArray = { projectsTasksIds[ project.id ] }
-           deleteTask = {this.props.deleteTask}       
-           updateTask = {this.props.updateTask}
-           replaceTask = {this.props.replaceTask}                      
-       />   */}
-
 /***/ }),
 /* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -53494,7 +53432,7 @@ function mapDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProjectEditIcons__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddTaskForm__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditTitleForm__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditProjectNameForm__ = __webpack_require__(145);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ProjectTitle__ = __webpack_require__(115);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -53542,7 +53480,7 @@ var ProjectHeader = function (_Component) {
                     project: this.props.project,
                     deleteProject: this.props.deleteProject,
                     startEditing: this.startStopEditingSwitcher
-                }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__EditTitleForm__["a" /* default */], {
+                }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__EditProjectNameForm__["a" /* default */], {
                     project: this.props.project,
                     handleEditProjectTitle: this.props.editProjectTitle,
                     stopEditing: this.startStopEditingSwitcher
@@ -53557,98 +53495,7 @@ var ProjectHeader = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (ProjectHeader);
 
 /***/ }),
-/* 114 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-var EditTitleForm = function (_Component) {
-    _inherits(EditTitleForm, _Component);
-
-    function EditTitleForm(props) {
-        _classCallCheck(this, EditTitleForm);
-
-        var _this = _possibleConstructorReturn(this, (EditTitleForm.__proto__ || Object.getPrototypeOf(EditTitleForm)).call(this, props));
-
-        _this.handleUpdateTitle = _this.handleUpdateTitle.bind(_this);
-        _this.cancelEditing = _this.cancelEditing.bind(_this);
-        return _this;
-    }
-
-    _createClass(EditTitleForm, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.newProjectTitleInput.focus();
-        }
-    }, {
-        key: 'handleUpdateTitle',
-        value: function handleUpdateTitle(e) {
-            var newProjectTitle = this.newProjectTitleInput.value.trim();
-
-            if (!newProjectTitle || newProjectTitle === this.props.project.name) {
-                this.props.stopEditing();
-            }
-            this.props.handleEditProjectTitle(this.props.project.id, newProjectTitle);
-            this.props.stopEditing();
-        }
-    }, {
-        key: 'cancelEditing',
-        value: function cancelEditing(e) {
-            e.preventDefault();
-            this.props.stopEditing();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'edit-project-name-form' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-                    defaultValue: this.props.project.name,
-                    ref: function ref(newProjectTitle) {
-                        _this2.newProjectTitleInput = newProjectTitle;
-                    }
-                }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { clsssName: 'ok-cancel-toolbox' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'span',
-                        { className: 'glyphicon glyphicon-ok', onClick: this.handleUpdateTitle },
-                        ' '
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'span',
-                        { className: 'glyphicon glyphicon-remove', onClick: this.cancelEditing },
-                        ' '
-                    )
-                )
-            );
-        }
-    }]);
-
-    return EditTitleForm;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-/* harmony default export */ __webpack_exports__["a"] = (EditTitleForm);
-
-/***/ }),
+/* 114 */,
 /* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -53708,172 +53555,20 @@ var ProjectTitle = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (ProjectTitle);
 
 /***/ }),
-/* 116 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export ProjectTasksList */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_SimpleProjectTask__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_task__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AddTaskForm__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_data_debounce__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_requests_requestPromiseFunc__ = __webpack_require__(7);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-
-
-var ProjectTasksList = function (_Component) {
-    _inherits(ProjectTasksList, _Component);
-
-    function ProjectTasksList(props) {
-        _classCallCheck(this, ProjectTasksList);
-
-        var _this = _possibleConstructorReturn(this, (ProjectTasksList.__proto__ || Object.getPrototypeOf(ProjectTasksList)).call(this, props));
-
-        _this.tasksOrderIsChanged = false;
-        _this.trackChangesOfTasksOrder = _this.trackChangesOfTasksOrder.bind(_this);
-        _this.up = _this.up.bind(_this);
-
-        _this.f = Object(__WEBPACK_IMPORTED_MODULE_6__helpers_data_debounce__["a" /* default */])(_this.f, 500);
-        return _this;
-    }
-
-    // handleMoveTask(currentTaskPriority , targetTaskId){
-
-
-    // }
-
-    _createClass(ProjectTasksList, [{
-        key: 'f',
-        value: function f() {
-            var tasksIds = this.props.projectsTasksIds[this.props.project.id];
-
-            var taskPriority = tasksIds.map(function (taskId, taskIndex) {
-                return { id: taskId, priority: taskIndex };
-            });
-
-            Object(__WEBPACK_IMPORTED_MODULE_7__helpers_requests_requestPromiseFunc__["a" /* default */])('PUT', 'api/update_tasks_list', JSON.stringify(taskPriority)).then(function (ok) {
-                console.log('ok');
-            }, function (notOk) {
-                console.log('woops');
-            });
-        }
-    }, {
-        key: 'trackChangesOfTasksOrder',
-        value: function trackChangesOfTasksOrder() {
-            this.tasksOrderIsChanged = true;
-            console.log("TRACKING " + this.tasksOrderIsChanged);
-        }
-    }, {
-        key: 'up',
-        value: function up() {
-
-            if (this.tasksOrderIsChanged) {
-                console.log('UP ');
-
-                this.f();
-            }
-        }
-
-        // updateTasksOrderOnDatabase()
-
-
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            console.log('RENDER');
-            var tasksIds = this.props.projectsTasksIds[this.props.project.id];
-
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__AddTaskForm__["a" /* default */], {
-                    projectId: this.props.project.id,
-                    addTask: this.props.addTask,
-                    newTaskIdsIndex: tasksIds ? tasksIds.length : 0
-                }),
-                tasksIds ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'ul',
-                    { className: 'project-tasks-list' },
-                    tasksIds.map(function (taskId, index) {
-                        var task = _this2.props.tasksById[taskId];
-                        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'li',
-                            { key: task.id },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SimpleProjectTask__["a" /* default */], {
-                                indexInTasksIdsArray: index,
-                                moveUpTask: _this2.props.moveUpTask,
-                                moveDownTask: _this2.props.moveDownTask,
-                                deleteTask: _this2.props.deleteTask,
-                                editTaskTitle: _this2.props.editTaskTitle,
-                                replaceTask: _this2.props.replaceTask,
-                                allTasksIdsOfCurrentProject: tasksIds,
-                                changeTaskStatus: _this2.props.changeTaskStatus,
-                                trackChangesOfTasksOrder: _this2.trackChangesOfTasksOrder,
-                                task: task,
-
-                                up: _this2.up
-                            })
-                        );
-                    })
-                ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null)
-            );
-        }
-    }]);
-
-    return ProjectTasksList;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-function mapStateToProps(state) {
-    return {
-        tasksById: state.tasks.tasksById,
-        projectsTasksIds: state.tasks.projectsTasksIds
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        deleteTask: Object(__WEBPACK_IMPORTED_MODULE_3_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_4__actions_task__["c" /* deleteTask */], dispatch),
-        editTaskTitle: Object(__WEBPACK_IMPORTED_MODULE_3_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_4__actions_task__["d" /* editTaskTitle */], dispatch),
-        moveUpTask: Object(__WEBPACK_IMPORTED_MODULE_3_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_4__actions_task__["f" /* moveUpTask */], dispatch),
-        moveDownTask: Object(__WEBPACK_IMPORTED_MODULE_3_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_4__actions_task__["e" /* moveDownTask */], dispatch),
-        changeTaskStatus: Object(__WEBPACK_IMPORTED_MODULE_3_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_4__actions_task__["b" /* changeTaskStatus */], dispatch),
-
-        addTask: Object(__WEBPACK_IMPORTED_MODULE_3_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_4__actions_task__["a" /* addTask */], dispatch)
-    };
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(ProjectTasksList));
-
-/***/ }),
+/* 116 */,
 /* 117 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export SimpleProjectTask */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_TaskTitle__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EditTaskNameForm__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_TaskIsDoneCheckBox__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_TaskTitle__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_EditTaskNameForm__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_TaskIsDoneCheckBox__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_task__ = __webpack_require__(36);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53881,6 +53576,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
 
 
 
@@ -53910,15 +53608,6 @@ var SimpleProjectTask = function (_Component) {
         key: 'makeTaskActive',
         value: function makeTaskActive() {
             if (!this.state.taskIsActive) {
-
-                // let currentIndex; 
-                // this.props.allTasksIdsOfCurrentProject.forEach((taskId , index) =>{
-                //         if (taskId === this.props.task.id ) {
-                //             currentIndex = index; 
-                //         }
-                //      }
-                // )
-                //this.setState( { tasksIsActive : true , indexInProjectTasksArray : currentIndex });
                 this.setState({ taskIsActive: true });
             }
         }
@@ -53942,12 +53631,13 @@ var SimpleProjectTask = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'simple-project-task' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_TaskIsDoneCheckBox__["a" /* default */], {
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_TaskIsDoneCheckBox__["a" /* default */], {
                     taskIsDone: this.props.task.isDone,
                     handleCheck: this.props.changeTaskStatus,
                     taskId: this.props.task.id
                 }),
-                !this.state.taskNameIsEditing ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_TaskTitle__["a" /* default */], {
+                !this.state.taskNameIsEditing ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_TaskTitle__["a" /* default */], {
+                    handleChangeTasOrderForSercerSide: this.props.handleChangeTasOrderForSercerSide,
                     trackChangesOfTasksOrder: this.props.trackChangesOfTasksOrder,
                     indexInTasksIdsArray: this.props.indexInTasksIdsArray,
                     taskIsActive: this.state.taskIsActive,
@@ -53957,10 +53647,9 @@ var SimpleProjectTask = function (_Component) {
                     moveUpTask: this.props.moveUpTask,
                     moveDownTask: this.props.moveDownTask,
                     deleteTask: this.props.deleteTask,
-                    task: this.props.task,
+                    task: this.props.task
 
-                    up: this.props.up
-                }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_EditTaskNameForm__["a" /* default */], {
+                }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_EditTaskNameForm__["a" /* default */], {
                     task: this.props.task,
                     handleEditTaskTitle: this.props.editTaskTitle,
                     replaceTask: this.props.replaceTask,
@@ -53973,7 +53662,17 @@ var SimpleProjectTask = function (_Component) {
     return SimpleProjectTask;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (SimpleProjectTask);
+function mapDispatchToProps(dispatch) {
+    return {
+        deleteTask: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_6__actions_task__["c" /* deleteTask */], dispatch),
+        editTaskTitle: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_6__actions_task__["d" /* editTaskTitle */], dispatch),
+        moveUpTask: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_6__actions_task__["f" /* moveUpTask */], dispatch),
+        moveDownTask: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_6__actions_task__["e" /* moveDownTask */], dispatch),
+        changeTaskStatus: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_6__actions_task__["b" /* changeTaskStatus */], dispatch)
+    };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(null, mapDispatchToProps)(SimpleProjectTask));
 
 /***/ }),
 /* 118 */
@@ -54029,29 +53728,18 @@ var TaskTitle = function (_Component) {
         key: 'handleClickOutside',
         value: function handleClickOutside(event) {
             if (!this.activeTask || !this.activeTask.contains(event.target)) {
-                //   console.log('OUTSIDE ' + this.props.task.name);
                 this.props.makeTaskNotActive();
             }
-            //  document.body.removeEventListener('keydown',this.cancelScrollingByArrowKeys)
         }
     }, {
         key: 'handleClickOnTaskTitle',
         value: function handleClickOnTaskTitle() {
             this.activeTask.focus();
             this.props.makeTaskActive();
-            // document.body.addEventListener('keydown' ,this.cancelScrollingByArrowKeys )
         }
-
-        // cancelScrollingByArrowKeys(e){
-        //         if (e.keyCode == 40 || e.keyCode == 38) // запретить скролл
-        //         e.preventDefault();
-        //         return false
-        // }
-
     }, {
         key: 'handleKeyDown',
         value: function handleKeyDown(e) {
-            //  console.log('KEYDOWN  ' + e.keyCode + ' IN ' +  this.props.task.name);
             if (e.keyCode === 38) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -54059,7 +53747,7 @@ var TaskTitle = function (_Component) {
 
                 this.props.moveUpTask(this.props.indexInTasksIdsArray, this.props.task.id);
                 this.props.trackChangesOfTasksOrder();
-                this.props.up();
+                this.props.handleChangeTasOrderForSercerSide();
             }
 
             if (e.keyCode === 40) {
@@ -54069,7 +53757,7 @@ var TaskTitle = function (_Component) {
 
                 this.props.moveDownTask(this.props.indexInTasksIdsArray, this.props.task.id);
                 this.props.trackChangesOfTasksOrder();
-                this.props.up();
+                this.props.handleChangeTasOrderForSercerSide();
             }
         }
     }, {
@@ -54077,7 +53765,6 @@ var TaskTitle = function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            //   console.log('RENDER ' + this.props.task.name);
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'task-title-with-edit-icons' },
@@ -54125,8 +53812,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
-
-// Конектить отдельно от ToDoPage ?
 
 var TaskEditIcons = function (_Component) {
     _inherits(TaskEditIcons, _Component);
@@ -54212,6 +53897,7 @@ var EditTaskNameForm = function (_Component) {
         var _this = _possibleConstructorReturn(this, (EditTaskNameForm.__proto__ || Object.getPrototypeOf(EditTaskNameForm)).call(this, props));
 
         _this.handleUpdateTitle = _this.handleUpdateTitle.bind(_this);
+        _this.handleEnterDown = _this.handleEnterDown.bind(_this);
         _this.cancelEditing = _this.cancelEditing.bind(_this);
         return _this;
     }
@@ -54223,8 +53909,7 @@ var EditTaskNameForm = function (_Component) {
         }
     }, {
         key: 'handleUpdateTitle',
-        value: function handleUpdateTitle(e) {
-            e.preventDefault();
+        value: function handleUpdateTitle() {
             var newTaskTitle = this.newTaskTitleInput.value.trim();
 
             if (!newTaskTitle || newTaskTitle === this.props.task.title) {
@@ -54240,6 +53925,11 @@ var EditTaskNameForm = function (_Component) {
             this.props.stopEditing();
         }
     }, {
+        key: 'handleEnterDown',
+        value: function handleEnterDown(e) {
+            if (e.keyCode == 13) this.handleUpdateTitle();
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -54251,7 +53941,8 @@ var EditTaskNameForm = function (_Component) {
                     defaultValue: this.props.task.name,
                     ref: function ref(newTaskTitle) {
                         return _this2.newTaskTitleInput = newTaskTitle;
-                    }
+                    },
+                    onKeyDown: this.handleEnterDown
                 }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -54370,48 +54061,7 @@ function fetchTodoError(errorMessage) {
 }
 
 /***/ }),
-/* 124 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(2);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var ToDoList = function (_Component) {
-    _inherits(ToDoList, _Component);
-
-    function ToDoList() {
-        _classCallCheck(this, ToDoList);
-
-        return _possibleConstructorReturn(this, (ToDoList.__proto__ || Object.getPrototypeOf(ToDoList)).apply(this, arguments));
-    }
-
-    _createClass(ToDoList, [{
-        key: 'render',
-        value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null);
-        }
-    }]);
-
-    return ToDoList;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-/* harmony default export */ __webpack_exports__["a"] = (ToDoList);
-
-/***/ }),
+/* 124 */,
 /* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -54786,6 +54436,287 @@ exports['default'] = thunk;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_Header__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_ToDoList__ = __webpack_require__(112);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var ToDoPage = function (_Component) {
+    _inherits(ToDoPage, _Component);
+
+    function ToDoPage() {
+        _classCallCheck(this, ToDoPage);
+
+        return _possibleConstructorReturn(this, (ToDoPage.__proto__ || Object.getPrototypeOf(ToDoPage)).apply(this, arguments));
+    }
+
+    _createClass(ToDoPage, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'todo-main-page' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_Header__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_ToDoList__["a" /* default */], null)
+            );
+        }
+    }]);
+
+    return ToDoPage;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (ToDoPage);
+
+/***/ }),
+/* 144 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export ProjectTasksList */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__SimpleProjectTask__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_task__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_AddTaskForm__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_data_debounce__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_requests_requestPromiseFunc__ = __webpack_require__(7);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+var ProjectTasksList = function (_Component) {
+    _inherits(ProjectTasksList, _Component);
+
+    function ProjectTasksList(props) {
+        _classCallCheck(this, ProjectTasksList);
+
+        var _this = _possibleConstructorReturn(this, (ProjectTasksList.__proto__ || Object.getPrototypeOf(ProjectTasksList)).call(this, props));
+
+        _this.tasksOrderIsChanged = false;
+        _this.trackChangesOfTasksOrder = _this.trackChangesOfTasksOrder.bind(_this);
+        _this.handleChangeTasOrderForSercerSide = _this.handleChangeTasOrderForSercerSide.bind(_this);
+        _this.sendTaskOrderChengeToSercer = Object(__WEBPACK_IMPORTED_MODULE_6__helpers_data_debounce__["a" /* default */])(_this.sendTaskOrderChengeToSercer, 500);
+        return _this;
+    }
+
+    _createClass(ProjectTasksList, [{
+        key: 'sendTaskOrderChengeToSercer',
+        value: function sendTaskOrderChengeToSercer() {
+            var tasksIds = this.props.projectsTasksIds[this.props.project.id];
+
+            var newTaskPriority = tasksIds.map(function (taskId, taskIndex) {
+                return { id: taskId, priority: taskIndex };
+            });
+            this.props.updateTasksPriority(newTaskPriority);
+        }
+    }, {
+        key: 'trackChangesOfTasksOrder',
+        value: function trackChangesOfTasksOrder() {
+            this.tasksOrderIsChanged = true;
+        }
+    }, {
+        key: 'handleChangeTasOrderForSercerSide',
+        value: function handleChangeTasOrderForSercerSide() {
+            if (this.tasksOrderIsChanged) {
+                this.sendTaskOrderChengeToSercer();
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var tasksIds = this.props.projectsTasksIds[this.props.project.id];
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_AddTaskForm__["a" /* default */], {
+                    projectId: this.props.project.id,
+                    addTask: this.props.addTask,
+                    newTaskIdsIndex: tasksIds ? tasksIds.length : 0
+                }),
+                tasksIds ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'ul',
+                    { className: 'project-tasks-list' },
+                    tasksIds.map(function (taskId, index) {
+                        var task = _this2.props.tasksById[taskId];
+                        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'li',
+                            { key: task.id },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__SimpleProjectTask__["a" /* default */], {
+                                task: task,
+                                indexInTasksIdsArray: index,
+                                allTasksIdsOfCurrentProject: tasksIds,
+                                trackChangesOfTasksOrder: _this2.trackChangesOfTasksOrder,
+                                handleChangeTasOrderForSercerSide: _this2.handleChangeTasOrderForSercerSide
+                            })
+                        );
+                    })
+                ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null)
+            );
+        }
+    }]);
+
+    return ProjectTasksList;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+function mapStateToProps(state) {
+    return {
+        tasksById: state.tasks.tasksById,
+        projectsTasksIds: state.tasks.projectsTasksIds
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addTask: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_4__actions_task__["a" /* addTask */], dispatch),
+        updateTasksPriority: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_4__actions_task__["g" /* updateTasksPriority */], dispatch)
+    };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(ProjectTasksList));
+
+/***/ }),
+/* 145 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var EditProjectNameForm = function (_Component) {
+    _inherits(EditProjectNameForm, _Component);
+
+    function EditProjectNameForm(props) {
+        _classCallCheck(this, EditProjectNameForm);
+
+        var _this = _possibleConstructorReturn(this, (EditProjectNameForm.__proto__ || Object.getPrototypeOf(EditProjectNameForm)).call(this, props));
+
+        _this.handleUpdateTitle = _this.handleUpdateTitle.bind(_this);
+        _this.cancelEditing = _this.cancelEditing.bind(_this);
+        _this.handleEnterDown = _this.handleEnterDown.bind(_this);
+        return _this;
+    }
+
+    _createClass(EditProjectNameForm, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.newProjectTitleInput.focus();
+        }
+    }, {
+        key: 'handleUpdateTitle',
+        value: function handleUpdateTitle() {
+            var newProjectTitle = this.newProjectTitleInput.value.trim();
+
+            if (!newProjectTitle || newProjectTitle === this.props.project.name) {
+                this.props.stopEditing();
+            }
+            this.props.handleEditProjectTitle(this.props.project.id, newProjectTitle);
+            this.props.stopEditing();
+        }
+    }, {
+        key: 'cancelEditing',
+        value: function cancelEditing(e) {
+            e.preventDefault();
+            this.props.stopEditing();
+        }
+    }, {
+        key: 'handleEnterDown',
+        value: function handleEnterDown(e) {
+            if (e.keyCode == 13) this.handleUpdateTitle();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'edit-project-name-form' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                    defaultValue: this.props.project.name,
+                    ref: function ref(newProjectTitle) {
+                        _this2.newProjectTitleInput = newProjectTitle;
+                    },
+                    onKeyDown: this.handleEnterDown
+                }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'ok-cancel-toolbox' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'glyphicon glyphicon-ok', onClick: this.handleUpdateTitle },
+                        ' '
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'glyphicon glyphicon-remove', onClick: this.cancelEditing },
+                        ' '
+                    )
+                )
+            );
+        }
+    }]);
+
+    return EditProjectNameForm;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (EditProjectNameForm);
 
 /***/ })
 /******/ ]);

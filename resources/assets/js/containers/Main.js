@@ -1,10 +1,10 @@
 import React , {Component} from 'react';
 import ReactDOM from 'react-dom';
 import AuthPage from './AuthPage';
-import ToDoPage from './ToDoPage';
+import ToDoPage from '../components/ToDoPage';
 import { connect } from 'react-redux';
-import	{	bindActionCreators	}	from	'redux'
-import {register , login , autoLogin} from '../actions/user';
+import	{ bindActionCreators }	from	'redux'
+import {autoLogin} from '../actions/user';
 
  class Main extends Component{
 
@@ -21,11 +21,7 @@ import {register , login , autoLogin} from '../actions/user';
                     {
                         !isAuthorized 
                         ?
-                            <AuthPage 
-                                handleLogin = {this.props.loginFunc}
-                                handleRegister = {this.props.registerFunc}
-                                autoLoginFunc = {this.props.autoLogin}
-                            />
+                            <AuthPage/>
                         :
                             <ToDoPage/>
                     }
@@ -34,7 +30,7 @@ import {register , login , autoLogin} from '../actions/user';
     }
 }
 
-// Законектить AuthPage отдельно ! 
+
 function	mapStateToProps(state)	{
 		return	{
 				user:	    state.user,
@@ -43,10 +39,8 @@ function	mapStateToProps(state)	{
 
 function	mapDispatchToProps(dispatch)	{
 		return	{
-				registerFunc:	bindActionCreators(register , dispatch),
-                loginFunc:	    bindActionCreators(login , dispatch) ,
                 autoLogin :     bindActionCreators(autoLogin , dispatch)           
 		}
 }
 
-export default connect ( mapStateToProps, mapDispatchToProps)(Main)
+export default connect (mapStateToProps , mapDispatchToProps)(Main)
