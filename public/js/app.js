@@ -54648,8 +54648,8 @@ var EditProjectNameForm = function (_Component) {
         var _this = _possibleConstructorReturn(this, (EditProjectNameForm.__proto__ || Object.getPrototypeOf(EditProjectNameForm)).call(this, props));
 
         _this.handleUpdateTitle = _this.handleUpdateTitle.bind(_this);
-        _this.cancelEditing = _this.cancelEditing.bind(_this);
         _this.handleEnterDown = _this.handleEnterDown.bind(_this);
+        _this.cancelEditing = _this.cancelEditing.bind(_this);
         return _this;
     }
 

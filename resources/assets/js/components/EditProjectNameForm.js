@@ -6,8 +6,8 @@ export default class EditProjectNameForm extends Component {
         constructor(props){
         super(props);
         this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
-        this.cancelEditing = this.cancelEditing.bind(this);
         this.handleEnterDown = this.handleEnterDown.bind(this);
+        this.cancelEditing = this.cancelEditing.bind(this);
     }
 
     componentDidMount() {
