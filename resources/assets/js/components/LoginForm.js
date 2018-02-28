@@ -1,60 +1,96 @@
 import React, { Component } from 'react';
 import {findDOMNode} from 'react-dom';
+import  FormErrors  from './FormErrors';
 
 export default  class LoginForm extends Component {
 
     constructor(props){
         super(props)
         this.handleLogin = this.handleLogin.bind(this);
+       this.handleUserInput = this.handleUserInput.bind(this);
+        this.state ={
+                    login: '',
+                    password: '',
+                    formErrors: {login: '', password: ''},
+                    emailValid: false,
+                    passwordValid: false,
+                    formValid: false
+        }
     }
 
-    componentDidMount() { 
-      findDOMNode(this.refs.login).focus();
+    handleUserInput (e)  {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({[name]: value},
+                    () => { this.validateField(name, value) });
    }
 
-    handleLogin(e) {
-         const loginInput = findDOMNode(this.refs.login)
-         const passwordInput = findDOMNode(this.refs.password);
-         const login = loginInput.value.trim();
-         const password = passwordInput.value.trim();
+   validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let loginValid = this.state.loginValid;
+    let passwordValid = this.state.passwordValid;
+
+    switch(fieldName) {
+      case 'login':
+        loginValid = value.length > 0;
+        fieldValidationErrors.login = loginValid ? '' : ' is requared';
+        break;
+      case 'password':
+        passwordValid = value.length >= 6;
+        fieldValidationErrors.password = passwordValid ? '': ' is too short';
+        break;
+      default:
+        break;
+    }
+    this.setState({formErrors: fieldValidationErrors,
+                    loginValid: loginValid,
+                    passwordValid: passwordValid
+                  }, this.validateForm);
+  }
+
+  validateForm() {
+    this.setState({formValid: this.state.loginValid && this.state.passwordValid});
+  }
+
+  errorClass(error) {
+    return(error.length === 0 ? '' : 'has-error');
+  }
+
+   handleLogin(e) {
          e.preventDefault();
-
-         if (!login) { 
-                alert('Login is requared!');
-                loginInput.focus();
-                return 
-            }    
-         if (!password) { 
-                alert('Password is requared!'); 
-                passwordInput.focus();
-                return 
-            }  
-         this.props.handleLoginFunc( { name : login , password : password} );
+         this.props.handleLoginFunc( { name : this.state.login , password : this.state.password} );
    }
 
-    render () {
+   render () {
         return (
                 <div className="login-form">
-                <form onSubmit = {this.handleLogin} >
+                <form onSubmit = {this.handleLogin}>
                     
                     <input
-                        defaultValue=''
+                        className={`form-group ${this.errorClass(this.state.formErrors.login)}`}
                         placeholder='Login'
-                        ref='login'
+                        name="login"
+                        value={this.state.email}
+                        onChange={this.handleUserInput}
                     /> <br/>
 
                     <input
-                        defaultValue=''
+                        className={`form-group ${this.errorClass(this.state.formErrors.password)}`}
                         type = 'password'
+                        name="password"
                         placeholder='Password'
-                        ref='password'
+                        value={this.state.password}
+                        onChange={this.handleUserInput}
                     /> <br/>
 
-                    <button type='submit'>Login</button>
-                </form>
+                    <button type='submit' disabled={!this.state.formValid} >Login</button>
+              </form>
+               <div className = 'form-errors-box'>
+                <FormErrors formErrors={this.state.formErrors} />
                 </div>
+             </div>
         )
 
-    }
+   }
      
 }

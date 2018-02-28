@@ -8594,6 +8594,8 @@ button.close {
   padding: 12px 0 0 10px;
   vertical-align: middle;
   color: black;
+  word-wrap: break-word;
+  word-break: break-all;
   min-height: 50px;
   height: 100%;
   width: 80%;
@@ -8623,18 +8625,12 @@ button.close {
   cursor: pointer;
 }
 
-.login-form button {
+.login-form button,
+.register-form button {
   margin-top: 20px;
   width: 100px;
   height: 30px;
   background-color: white;
-}
-
-.login-form input,
-.register-form input {
-  outline: none;
-  width: 200px;
-  margin-top: 5px;
 }
 
 .login-form button:hover,
@@ -8663,9 +8659,7 @@ button.close {
   margin-bottom: 30px;
 }
 
-.login-form button,
-.auth-page button,
-#submit-register {
+.auth-page button {
   border-radius: 5px;
   border: 0;
   font-weight: 100;
@@ -8676,30 +8670,39 @@ button.close {
   outline: none;
 }
 
-#submit-register {
-  margin-top: 20px;
-  width: 100px;
-  height: 30px;
-  -webkit-transition: 300ms;
-  transition: 300ms;
+.auth-page input {
+  outline: none;
+  width: 200px;
+  margin-top: 5px;
+}
+
+input.form-group.has-error {
+  outline-style: solid;
+  outline-color: red;
+  outline-width: 1px;
+}
+
+.form-errors-box {
+  color: white;
+  z-index: 0;
+  padding: 5px;
+  margin: 7% 11% 0 11%;
+  border-top: 1px solid white;
+}
+
+.form-errors-items p {
+  line-height: 8px;
+  margin-top: 4px;
 }
 
 .auth-page {
   width: 300px;
-  height: 300px;
-  padding: 15px;
+  min-height: 300px;
+  padding: 20px 20px 0 20px;
   border-radius: 15px;
   border: 1px solid #333;
   background-color: rgba(255, 250, 206, 0.2);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   margin: 0 auto;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  z-index: 1;
 }
 
