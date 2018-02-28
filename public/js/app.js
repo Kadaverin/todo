@@ -51223,17 +51223,12 @@ var RegisterForm = function (_Component) {
   _createClass(RegisterForm, [{
     key: 'handleRegister',
     value: function handleRegister(e) {
-      // e.preventDefault();
-      // const login = findDOMNode(this.refs.login).value.trim();
-      // const password = findDOMNode(this.refs.password).value.trim();
-      // const password_confirm = findDOMNode(this.refs.password_confirm).value.trim();
 
-      // if (!login || !password || !password_confirm ) return;
-      // this.props.handleRegisterFunc({ 
-      //                 name : login, 
-      //                 password : password, 
-      //                 password_confirmation : password_confirm
-      //             });
+      this.props.handleRegisterFunc({
+        name: this.state.login,
+        password: this.state.password,
+        password_confirmation: this.state.confirm
+      });
     }
   }, {
     key: 'handleUserInput',
