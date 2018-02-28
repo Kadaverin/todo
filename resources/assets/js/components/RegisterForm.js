@@ -16,12 +16,10 @@ export default class RegisterForm extends Component {
     const login = findDOMNode(this.refs.login).value.trim();
     const password = findDOMNode(this.refs.password).value.trim();
     const password_confirm = findDOMNode(this.refs.password_confirm).value.trim();
-    const email = findDOMNode(this.refs.email).value.trim();
 
-    if (!login || !password || !password_confirm || !email) return;
+    if (!login || !password || !password_confirm ) return;
     this.props.handleRegisterFunc({ 
                     name : login, 
-                    email : email, 
                     password : password, 
                     password_confirmation : password_confirm
                 });
@@ -36,12 +34,6 @@ export default class RegisterForm extends Component {
                       type="text" 
                       placeholder = 'Login'
                       ref = 'login'/>
-                  <br/>
-
-                  <input 
-                      type="email" 
-                      placeholder = 'Email'
-                      ref = 'email' />
                   <br/>
               
                   <input 
